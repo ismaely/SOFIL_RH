@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<!--
+@File   : registar_cadastro.html
+@Author : Gunza Ismael ({__email})
+@Link   : 
+@Date   : 17/06/2019, 01:31:37
+-->
+{% extends 'home_base.html' %}{% block corpo %}{% load static %}
+
+
+<!-- start: Content -->
+
+<div class="col-md-12 modal-example">
+    <div class="col-md-12">
+        <div class="col-md-12 panel">
+            <div class="col-md-12 panel-heading">
+                <h4>Registar Cadastro </h4>
+            </div>
+            <div class="col-md-12">
+
+                <div class="">
+                    <section>
+                        <div class="wizard">
+                            <div class="wizard-inner">
+                                <ul class="nav nav-tabs" role="tablist">
+
+                                    <li role="presentation" class="active">
+                                        <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Dados Pessoas">
+
+                                            <span class="round-tab">
+                                                    <i class="glyphicon glyphicon-user"></i>
+                                                </span>
+
+                                        </a>
+                                    </li>
+
+                                    <li role="presentation" class="disabled">
+                                        <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Dados Académicos">
+
+                                            <span class="round-tab">
+                                                    <i class="fa fa-mortar-board"></i>
+                                                </span>
+
+                                        </a>
+                                    </li>
+                                    <li role="presentation" class="disabled">
+                                        <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Dados Profissionais">
+
+                                            <span class="round-tab">
+                                                    <i class="glyphicon glyphicon-briefcase"></i>
+                                             </span>
+
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                            <form role="form" action="{% url 'secretaria:registar-cadastro' %}" method="POST">
+                                <div class="tab-content">
+                                    {% csrf_token %} {% autoescape on %}
+                                    <div class="tab-pane active" role="tabpanel" id="step1">
+                                        <div class="col-md-4">
+                                            <!-- inicio do primeiro bloco-->
+                                            <div class="form-group " style="margin-top:20px !important;">
+                                                <span class="bar"></span>
+                                                <label>Nome Completo</label> {{ form.nome }} {{ form.nome.errors }}
+
+                                            </div>
+
+                                            <div class="form-group " style="margin-top:20px !important;">
+                                                <span class="bar"></span>
+                                                <label>Data de Nascimento </label> {{ form.data_nascimento }} {{ form.data_nascimento.errors }}
+
+                                            </div>
+
+                                            <div class="form-group " style="margin-top:20px !important;">
+                                                <span class="bar"></span>
+                                                <label>BI Nº</label> {{ form.bi }} {{ form.bi.errors }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group " style="margin-top:20px !important;">
+                                                <span class="bar"></span>
+                                                <label>Nome do Pai</label> {{ form.nome_pai }} {{ form.nome_pai.errors }}
+                                            </div>
+                                            <div class="form-group " style="margin-top:20px !important;">
+                                                <span class="bar"></span>
+                                                <label>Genero</label> {{ form.genero }} {{ form.genero.errors }}
+
+                                            </div>
+                                            <div class="form-group " style="margin-top:20px !important;">
+                                                <span class="bar"></span>
+                                                <label>Estado Civil</label> {{ form.estado_civil }} {{ form.estado_civil.errors }}
+
+                                            </div>
+                                            <ul class="list-inline pull-right">
+                                                <li><button type="button" class="btn btn-primary next-step">Proximo</button></li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group " style="margin-top:20px !important;">
+                                                <span class="bar"></span>
+                                                <label>Nome da Mãe</label> {{ form.nome_mae }} {{ form.nome_mae.errors }}
+
+                                            </div>
+
+                                            <div class="form-group " style="margin-top:20px !important;">
+                                                <span class="bar"></span>
+                                                <label>Naturalidade</label> {{ form.naturalidade }} {{ form.naturalidade.errors }}
+
+                                            </div>
+
+                                            <div class="form-group " style="margin-top:20px !important;">
+                                                <span class="bar"></span>
+                                                <label>Residencia</label> {{ form.residencia }} {{ form.residencia.errors }}
+                                            </div>
+                                        </div>
+                                        <!-- fim do primeiro bloco-->
+                                    </div>
+
+                                    <!-- 2 BLOCO--->
+                                    <div class="tab-pane" role="tabpanel" id="step2">
+                                        <div class="col-md-4">
+                                            <div class="form-group" style="margin-top:20px !important;">
+                                                <span class="bar"></span>
+                                                <label>Telefone</label> {{ form.telefone }} {{ form.telefone.errors }}
+
+                                            </div>
+
+                                            <div class="form-group " style="margin-top:20px !important;">
+                                                <span class="bar"></span>
+                                                <label>Graduado Em</label> {{ form2.graduado }} {{ form2.graduado.errors }}
+
+                                            </div>
+
+                                            <div class="form-group " style="margin-top:20px !important;">
+                                                <span class="bar"></span>
+                                                <label>Data da Conclusão</label> {{ form2.data_conclusao }} {{ form2.data_conclusao.errors }}
+
+                                            </div>
+
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <!-- inicio do primeiro bloco-->
+                                            <div class="form-group " style="margin-top:20px !important;">
+                                                <span class="bar"></span>
+                                                <label>E-mail</label> {{ form.email }} {{ form.email.errors }}
+
+                                            </div>
+
+                                            <div class="form-group " style="margin-top:20px !important;">
+                                                <span class="bar"></span>
+                                                <label>Especialidade</label> {{ form2.especialidade }} {{ form2.especialidade.errors }}
+                                            </div>
+                                            <div class="form-group " style="margin-top:20px !important;">
+                                                <span class="bar"></span>
+                                                <label>Nota Final</label> {{ form2.nota_final }} {{ form2.nota_final.errors }}
+                                            </div>
+                                            <ul class="list-inline pull-right">
+                                                <li><button type="button" class="btn btn-success prev-step">Voltar</button></li>
+                                                <li><button type="button" class="btn btn-primary next-step">Proximo</button></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <!-- inicio do primeiro bloco-->
+                                            <div class="form-group " style="margin-top:20px !important;">
+                                                <span class="bar"></span>
+                                                <label>Numero do Estudante</label> {{ form2.numero_estudante }} {{ form2.numero_estudante.errors }}
+
+                                            </div>
+                                            <div class="form-group " style="margin-top:20px !important;">
+                                                <span class="bar"></span>
+                                                <label>Universidade</label> {{ form2.universidade }} {{ form2.universidade.errors }}
+                                            </div>
+                                            <div class="form-group " style="margin-top:20px !important;">
+                                                <span class="bar"></span>
+                                                <label>Data</label> {{ form2.data_inscricao }} {{ form2.data_inscricao.errors }}
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 3 BLOCO--->
+                                    <div class="tab-pane" role="tabpanel" id="step3">
+                                        <div class="col-md-4">
+                                            <!-- inicio do segunco bloco-->
+                                            <div class="form-group" style="margin-top:20px !important;">
+                                                <span class="bar"></span>
+                                                <label>Instituição Empregadora</label> {{ form3.instituicao }} {{ form3.instituicao.errors }}
+                                            </div>
+                                            <div class="form-group " style="margin-top:20px !important;">
+                                                <span class="bar"></span>
+                                                <label>Anos de Experiência</label> {{ form3.ano_experiencia }} {{ form3.ano_experiencia.errors }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <!-- inicio do primeiro bloco-->
+                                            <div class="form-group " style="margin-top:20px !important;">
+                                                <span class="bar"></span>
+                                                <label>Função/Categoria</label> {{ form3.funcao }} {{ form3.funcao.errors }}
+                                            </div>
+                                            <div class="form-group " style="margin-top:20px !important;">
+                                                <span class="bar"></span>
+                                                <label>Localização</label> {{ form3.localizacao }} {{ form3.localizacao.errors }}
+                                            </div>
+                                            <ul class="list-inline pull-right">
+                                                <li><button type="button" class="btn btn-success prev-step">Voltar</button></li>
+                                                <li><button type="submit" class="btn btn-primary next-step">Salvar</button></li>
+                                            </ul>
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <!-- inicio do primeiro bloco-->
+                                            <div class="form-group " style="margin-top:20px !important;">
+                                                <span class="bar"></span>
+                                                <label>Área Profissional</label> {{ form3.area_profissional }} {{ form3.area_profissional.errors }}
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    {% endautoescape %}
+                                    <div class="clearfix"></div>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- end: Content -->
+
+
+{% endblock %}
