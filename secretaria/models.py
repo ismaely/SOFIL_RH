@@ -1,34 +1,15 @@
 from django.db import models
-from helper.opcoes_escolha import GENERO, ESTADO_CIVIL, CATEGORIA_ESTUDANTE, SEMESTRE, ANO_NIVEL
+from core_help.opcoes_escolha import GENERO, ESTADO_CIVIL
+from core_help.models import Provincias, Instituicao_superior, Semestre, Ano_Semestre, Especialidade
 
 # Create your models here.
-
-
-
-
-class Provincia(models.Model):
-    nome = models.CharField(max_length=100)
-
-    def __str__ (self):
-        return "%s" % (self.nome)
-
-
-
-class Instituicao_superior(models.Model):
-    nome = models.CharField(max_length=100)
-    sigla = models.CharField(max_length=20, blank=True, null=True, default=" ")
-
-    def __str__ (self):
-        return "%s" % (self.nome)
-
-    
 
 class Pessoa(models.Model):
     nome = models.CharField(max_length=200,)
     nome_pai = models.CharField(max_length=200, blank=True, null=True, default="--")
     nome_mae = models.CharField(max_length=200, blank=True, null=True, default="--")
     genero = models.CharField(max_length=12, choices=GENERO)
-    naturalidade = models.ForeignKey(Provincia, on_delete=models.CASCADE, parent_link=True)
+    naturalidade = models.ForeignKey(Provincias, on_delete=models.CASCADE, parent_link=True)
     data_nascimento = models.DateField()
     bi = models.CharField(max_length=20, unique=True)
     estado_civil = models.CharField(max_length=20, choices=ESTADO_CIVIL)
@@ -69,12 +50,17 @@ class Profissao(models.Model):
 
 
 
-class Modulo(models.Model):
-    nome = models.CharField(max_length=100)
-    sigla = models.CharField(max_length=20, blank=True, null=True, default="--")
-    carga_horaria = models.CharField(max_length=20, blank=True, null=True)
-    ano = models.CharField(max_length=20, choices=ANO_NIVEL)
-    semestre = models.CharField(max_length=20, choices=SEMESTRE)
+class Modulo_Disciplina(models.Model):
+    semestre = models.ForeignKey(Semestre, on_delete=models.CASCADE, parent_link=True)
+    ano = models.ForeignKey(Ano_Semestre, on_delete=models.CASCADE, parent_link=True)
+    especialidade = models.ForeignKey(Especialidade, on_delete=models.CASCADE, blank=True, null=True, parent_link=True)
+    nome = models.CharField(max_length=190, blank=True, null=True, default="--")
+    sigla_codigo = models.CharField(max_length=190, blank=True, null=True, default="--")
+    Horas = models.CharField(max_length=10, blank=True, null=True, default="--")
+    credito = models.CharField(max_length=9, blank=True, null=True, default="--")
+    estado = models.CharField(max_length=19, blank=True, null=True, default="Ativado")
 
     def __str__ (self):
         return self.id
+
+
