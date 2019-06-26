@@ -1,4 +1,4 @@
-from helper.includes import *
+from core_help.includes import *
 # Create your views here.
 
 
@@ -33,14 +33,10 @@ def registar_Monografia(request):
 
 
 
-def registar_curso(request):
-    context = {}
-    return render (request, 'secretaria/registar_curso.html', context)
-
-
-
 def registar_modulo(request):
-    context = {}
+    form = Modulo_DisciplinaForm(request.POST or None)
+
+    context = {'form':form,}
     return render (request, 'secretaria/registar_modulo.html', context)
 
 

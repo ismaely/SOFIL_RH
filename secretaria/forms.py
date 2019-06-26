@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
-from helper.opcoes_escolha import CATEGORIA_ESTUDANTE, SEMESTRE, CATEGORIA_ESTUDANTE
-from secretaria.models import Pessoa, Estudante, Modulo, Profissao
+from core_help.opcoes_escolha import GRAU_ADAEMICO
+from secretaria.models import Pessoa, Estudante,  Profissao, Modulo_Disciplina
 # forms.py
 # @Author : Gunza Ismael (7ilipe@gmail.com)
 # @Link   : 
@@ -26,6 +26,7 @@ class PessoaForm(ModelForm):
             'genero': forms.Select( attrs={'class': 'form-control'}),
             'estado_civil': forms.Select( attrs={'class': 'form-control'}),
         }
+
 
 
 
@@ -57,5 +58,25 @@ class ProfissaoForm(ModelForm):
     
     class Meta:
         model = Profissao
-        fields = ['instituicao', 'funcao', 'area_profissional', 'ano_experiencia', 'localizacao'] 
-        
+        fields = ['instituicao', 'funcao', 'area_profissional', 'ano_experiencia', 'localizacao']  
+
+
+
+class Modulo_DisciplinaForm(ModelForm):
+    nome = forms.CharField(max_length=120, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    sigla_codigo = forms.CharField(max_length=100,required=False,  widget=forms.TextInput(attrs={'class': 'form-control'}))
+    horas = forms.CharField(max_length=100,required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    credito = forms.CharField(max_length=20,required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    opcao = forms.CharField(max_length=20, widget=forms.Select(choices=GRAU_ADAEMICO, attrs={'class': 'form-control'}))
+    estado = forms.CharField(max_length=120, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    class Meta:
+        model = Modulo_Disciplina
+        fields = ['nome', 'sigla_codigo', 'horas', 'credito', 'ano', 'semestre', 'especialidade', 'estado']
+        widgets = {
+            'ano': forms.Select(attrs={'class': 'form-control'}),
+            'semestre': forms.Select(attrs={'class': 'form-control'}),
+            'especialidade': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+
+

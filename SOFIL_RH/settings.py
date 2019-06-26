@@ -38,10 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sweetify',
-    'helper',
     'secretaria',
-    'finacas',
     'estatistica',
+    'core_help'
 ]
 
 MIDDLEWARE = [
@@ -81,7 +80,7 @@ WSGI_APPLICATION = 'SOFIL_RH.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sofil_rh_academico',
+        'NAME': 'bd_gestao_academica',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': '127.0.0.1',
