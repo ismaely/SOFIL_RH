@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'sweetify',
     'secretaria',
     'estatistica',
-    'core_help'
+    'core_help',
+    'financas'
 ]
 
 MIDDLEWARE = [

@@ -6,8 +6,16 @@ TODOS OS MODELOS QUE ESTAO A QUE OS DADOS SÃO INSERIDO MANUALMENTE NA BASE DE D
 
 
 
+class Ano(models.Model):
+    nome = models.CharField(max_length=20)
+
+    def __str__ (self):
+        return "%s" % (self.nome)
+
+
 class Semestre(models.Model):
-    nome = models.CharField(max_length=100)
+    ano = models.ForeignKey(Ano, on_delete=models.CASCADE, parent_link=True)
+    nome = models.CharField(max_length=100,  blank=True, null=True)
 
     def __str__(self):
         return  "%s" % (self.nome)
@@ -31,14 +39,6 @@ class Instituicao_superior(models.Model):
 
 
 
-class Ano_Semestre(models.Model):
-    semestre = models.ForeignKey(Semestre, on_delete=models.CASCADE, parent_link=True)
-    nome = models.CharField(max_length=20)
-
-    def __str__ (self):
-        return "%s" % (self.nome)
-
-
 class Grau_academico(models.Model):
     nome = models.CharField(max_length=50)
 
@@ -50,6 +50,14 @@ class Grau_academico(models.Model):
 class Especialidade(models.Model):
     grau_academico = models.ForeignKey(Grau_academico, on_delete=models.CASCADE, parent_link=True)
     nome = models.CharField(max_length=160)
+
+    def __str__ (self):
+        return "%s" % (self.nome)
+    
+
+class Pagamento_semestre(models.Model):
+    nome = models.CharField(max_length=160)
+    valor = models.CharField(max_length=12, blank=True, null=True, default="--")
 
     def __str__ (self):
         return "%s" % (self.nome)

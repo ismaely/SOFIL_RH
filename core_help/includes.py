@@ -17,7 +17,11 @@ from django.contrib.auth.models import User
 from django.conf import settings
 
 import sweetify
-from core_help.opcoes_escolha import GENERO, ESTADO_CIVIL
+from core_help.opcoes_escolha import GENERO, ESTADO_CIVIL, GRAU_PAGAMENTO
 
-from secretaria.models import Pessoa, Estudante, Profissao
-from secretaria.forms import PessoaForm, EstudanteForm, ProfissaoForm, Modulo_DisciplinaForm
+from secretaria.models import Pessoa, Estudante, Profissao, Modulo_Disciplina
+from secretaria.forms import (PessoaForm, EstudanteForm, ProfissaoForm, Modulo_DisciplinaForm, DocenteForm, FuncinarioForm,
+MonografiaForm)
+
+from financas.models import Pagamento
+from financas.forms import PagamentoForm

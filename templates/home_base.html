@@ -48,7 +48,7 @@
                     <span class="middle"></span>
                     <span class="bottom"></span>
                 </div>
-                <a href="index.html" class="navbar-brand">
+                <a href="{% url 'secretaria:home' %}" class="navbar-brand">
                     <b>CPPPGL-UAN</b>
                 </a>
 
@@ -99,13 +99,15 @@
                             <span class="fa-angle-right fa right-arrow text-right"></span>
                         </a>
                         <ul class="nav nav-list tree">
-                            <li><a href="{% url 'secretaria:registar-cadastro' %}"> Registar Cadastro </a></li>
+                            <li><a href="{% url 'secretaria:registar-cadastro' %}"> Registar Cadastro estudante </a></li>
+                            <!-- <li><a href="{% url 'secretaria:registar-funcionario' %}"> Registar Docente/Funcionario </a></li> -->
                             <li><a href="{% url 'secretaria:registar-monografia' %}"> Registar Monografia</a></li>
                             <li><a href="{% url 'secretaria:registar-modulo' %}"> Registar Novo Modulo</a></li>
                             <li><a href="{% url 'secretaria:confirma-matricula' %}"> Confirmar Matricula</a></li>
                             <li><a href="#"> Emitir Declaração</a></li>
                             <li><a href="#"> Lançar Nota do Estudante</a></li>
                             <li><a href="{% url 'secretaria:listar-dados-estudante' %}"> Listar Dados de Estudante</a></li>
+                            <li><a href="{% url 'secretaria:listar-modulos' %}"> Listar Dados de Estudante</a></li>
 
 
                         </ul>
@@ -127,8 +129,8 @@
                             <span class="fa-angle-right fa right-arrow text-right"></span>
                         </a>
                         <ul class="nav nav-list tree">
-                            <li><a href="#">Registar Pagamento</a></li>
-                            <li><a href="#">Listar Pagamento</a></li>
+                            <li><a href="{% url 'financas:registar-pagamento' %}">Registar Pagamento</a></li>
+                            <li><a href="{% url 'financas:listar-pagamento' %}">Listar Pagamento</a></li>
                             <li><a href="#">Listar Divida</a></li>
                             <li><a href="#">Consultar pagamento</a></li>
                         </ul>
@@ -210,6 +212,7 @@
     <script src="{% static '/asset/js/plugins/chart.min.js' %}"></script>
     <script src="{% static '/asset/js/wizard.js' %}"></script>
     <script src="{% static '/asset/js/sweetalert2.js' %}"></script>
+    <script src="{% static '/asset/js/forms.js' %}"></script>
 
 
     <!-- custom -->

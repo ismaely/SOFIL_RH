@@ -6,6 +6,11 @@ GENERO = (
     ('Femenino', 'Femenino'),
 )
 
+ESCOLHA_DOCENTE_FUNCIONARIO = (
+    ('DOCENTE', 'DOCENTE'),
+    ('FUNCIONARIO', 'FUNCIONARIO'),
+)
+
 ESTADO_CIVIL = (
     ('Solteiro (a)', 'solteiro (a)'),
     ('Casado (a)', 'casado (a)'),
@@ -14,7 +19,7 @@ ESTADO_CIVIL = (
 
 )
 
-GRAU_ADAEMICO = (
+GRAU_ACDAEMICO_MODULOS = (
     ('-----', '-----'),
     ('Pós-Graduação', 'Pós-Graduação'),
     ('Mestrado', 'Mestrado'),
@@ -28,36 +33,25 @@ ANO_NIVEL = (
 )
 
 
-CATEGORIA = (
+CATEGORIA_CONTA = (
     ('DOCENTE', 'DOCENTE'),
-    ('ESTUDANTE', 'ESTUDANTE'),
-    ('FUNCIONARIO', 'FUNCIONARIO'),
+    ('GESTOR-MEDIO', 'GESTOR-MEDIO'),
+    ('GESTOR-TOP', 'GESTOR-TOP'),
+    ('ADMIN', 'ADMIN'),
 
 )
 
-NIVEL_DOCENTE = (
+GRAU_ACDAEMICO_DOCENTE = (
+    ('-----', '-----'),
     ('Licenciado', 'Licenciado'),
+    ('Pós-Graduação', 'Pós-Graduação'),
     ('Mestre', 'Mestre'),
     ('Doutor', 'Doutor'),
+    ('Phd', 'Phd'),
 )
 
+GRAU_PAGAMENTO = (
+    ('Pós-Graduação', 'Pós-Graduação'),
+    ('Mestrado', 'Mestrado'),
+)
 
-
-BENGO = ['Ambriz', 'Bula Atumba', 'Dande', 'Dembos', 'Nambuangongo', 'Pango Aluquém']
-BENGUELA = ['Balombo', 'Baía Farta', 'Benguela', 'Bocoio', 'Caimbambo', 'Catumbela', 'Chongorói', 'Cubal', 'Ganda', 'Lobito']
-BIE = ['Andulo', 'Camacupa, ''Catabola', 'Chinguar', 'Chitembo', 'Cuemba', 'Cunhinga', 'Kuito', 'Nharea']
-CABINDA  =['Belize', 'Buco-Zau', 'Cabinda', 'Cacongo']
-CUANDO_CUBANGO = ['Calai', 'Cuangar', 'Cuchi', 'Cuito Cuanavale', 'Dirico', 'Longa', 'Mavinga', 'Menongue', 'Nancova', 'Rivungo']
-CUNENE = ['Cahama', 'Cuanhama', 'Curoca', 'Cuvelai', 'Namacunde', 'Ombadja']
-HUAMBO = ['Bailundo', 'Catchiungo', 'Caála', 'Ekunha', 'Huambo', 'Londuimbale', 'Longonjo', 'Mungo', 'Tchicala-Tcholoanga', 'Tchindjenje', 'Ucuma']
-HUILA = ['Caconda', 'Cacula', 'Caluquembe', 'Chiange', 'Chibia', 'Chicomba', 'Chipindo', 'Cuvango', 'Humpata', 'Jamba', 'Lubango', 'Matala', 'Quilengues', 'Quipungo']
-CUANZA_NORTE = ['Ambaca', 'Banga', 'Bolongongo', 'Cambambe', 'Cazengo', 'Golungo Alto', 'Gonguembo', 'Lucala', 'Quiculungo', 'Samba Caju']
-CUANZA_SUL = ['Amboim', 'Cassongue', 'Cela', 'Conda', 'Ebo', 'Libolo', 'Mussende', 'Porto Amboim', 'Quibala', 'Quilenda', 'Seles', 'Sumbe']
-LUANDA = ['Belas', 'Cacuaco', 'Cazenga', 'Ícolo e Bengo', 'Luanda', 'Quiçama', 'Viana']
-LUNDA_NORTE = ['Cambulo', 'Capenda-Camulemba', 'Caungula', 'Chitato', 'Cuango', 'Cuílo', 'Lubalo', 'Lucapa', 'Xá-Muteba']
-LUNDA_SUL = ['Cacolo', 'Dala', 'Muconda', 'Saurimo']
-MALANJE = ['Cacuso', 'Calandula', 'Cambundi-Catembo', 'Cangandala', 'Caombo', 'Cuaba Nzogo', 'Cunda-Dia-Baze', 'Luquembo', 'Malanje', 'Marimba', 'Massango', 'Mucari', 'Quela', 'Quirima']
-MOXICO = ['Alto Zambeze', 'Bundas', 'Camanongue', 'Léua', 'Luau', 'Luacano', 'Luchazes', 'Luena', 'Lumeje', 'Moxico']
-NAMIBE = ['Bibala', 'Camucuio', 'Moçâmedes', 'Tômbua', 'Virei']
-UIGE = ['Alto Cauale', 'Ambuíla', 'Bembe', 'Buengas', 'Bungo', 'Damba', 'Macocola', 'Milunga', 'Mucaba', 'Negage', 'Puri', 'Quimbele', 'Quitexe', 'Sanza Pombo', 'Songo', 'Uíge', 'Zombo']
-ZAIRE = ['Cuimba', 'MBanza Kongo', 'Noqui', 'NZeto', 'Soyo', 'Tomboco']

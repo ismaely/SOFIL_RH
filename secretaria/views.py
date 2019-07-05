@@ -1,4 +1,5 @@
 from core_help.includes import *
+from core_help.ajuda import retorna_id_recebendo_bi
 # Create your views here.
 
 
@@ -16,8 +17,18 @@ def home(request):
 
 
 def listar_dados_estudante(request):
-    context = {}
+    lista =[]
+    lista = Estudante.objects.select_related('pessoa').all()
+    context = {'lista': lista}
     return render (request, 'secretaria/listar_dados_estudante.html', context)
+
+
+
+def listar_modulos(request): 
+    lista =[]
+    lista = Modulo_Disciplina.objects.select_related('semestre').all()
+    context = {'lista': lista}
+    return render (request, 'secretaria/listar_modulos.html', context)
 
 
 
@@ -28,16 +39,54 @@ def registar_confirma_matricula(request):
 
 
 def registar_Monografia(request):
-    context = {}
+    form = MonografiaForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            pessoa = form.save(commit=False)
+            pessoa.estudante_id = retorna_id_recebendo_bi(request.POST.get('estudante'))
+            pessoa.save()
+            sweetify.success(request, 'Modulo Registado com sucesso!....', button='Ok', timer='3100')
+            return HttpResponseRedirect(reverse('secretaria:home'))
+
+    context = {'form':form,}
     return render (request, 'secretaria/registar_Monografia.html', context)
 
 
 
 def registar_modulo(request):
     form = Modulo_DisciplinaForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            pessoa = form.save()
+            sweetify.success(request, 'Modulo Registado com sucesso!....', button='Ok', timer='3100')
+            return HttpResponseRedirect(reverse('secretaria:home'))
 
     context = {'form':form,}
     return render (request, 'secretaria/registar_modulo.html', context)
+
+
+
+def registar_docente_funcionario(request):
+    form = PessoaForm(request.POST or None) 
+    form2 = DocenteForm(request.POST or None)
+    form3 = FuncinarioForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid() and form2.is_valid() and form3.is_valid():
+            pessoa = form.save()
+            if request.POST['escolha_docente_funcionario'] == 'DOCENTE':
+                docente = form2.save(commit=False)
+                docente.pessoa_id = pessoa.id
+                docente.save()
+            if request.POST['escolha_docente_funcionario'] == 'FUNCIONARIO':
+                funcionario = form3.save(commit=False)
+                funcionario.pessoa_id = pessoa.id
+                funcionario.save()
+            sweetify.success(request, 'Dados Registado com sucesso!....', button='Ok', timer='3100')
+            return HttpResponseRedirect(reverse('secretaria:home'))
+   
+    context = {'form':form, 'form2': form2, 'form3': form3}
+    return render (request, 'secretaria/registar_docente_funcionario.html', context)
+
 
 
 
@@ -58,7 +107,7 @@ def registar_cadastro(request):
             return HttpResponseRedirect(reverse('secretaria:home'))
    
     context = {'form':form, 'form2': form2, 'form3': form3}
-    return render (request, 'secretaria/registar_cadastro.html', context)
+    return render (request, 'secretaria/registar_cadastro_estudante.html', context)
 
 
 

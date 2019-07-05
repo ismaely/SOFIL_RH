@@ -11,4 +11,6 @@ urlpatterns = [
     path('registar_monografia', views.registar_Monografia, name='registar-monografia'),
     path('confirma_matricula', views.registar_confirma_matricula, name='confirma-matricula'),
     path('listar_dados_estudante', views.listar_dados_estudante, name='listar-dados-estudante'),
+    path('registar_docente_funcionario', views.registar_docente_funcionario, name='registar-funcionario'),
+    path('listar_modulos', views.listar_modulos, name='listar-modulos'),
 ]
