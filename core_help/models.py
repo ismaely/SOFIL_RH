@@ -27,15 +27,16 @@ class Provincias(models.Model):
 
     def __str__ (self):
         return "%s" % (self.nome)
-    
+
 
 
 class Instituicao_superior(models.Model):
-    nome = models.CharField(max_length=100)
+    nome = models.CharField(max_length=190)
     sigla = models.CharField(max_length=20, blank=True, null=True, default=" ")
 
     def __str__ (self):
         return "%s" % (self.nome)
+
 
 
 
@@ -47,13 +48,22 @@ class Grau_academico(models.Model):
 
 
 
-class Especialidade(models.Model):
+class Cursos(models.Model):
     grau_academico = models.ForeignKey(Grau_academico, on_delete=models.CASCADE, parent_link=True)
+    nome = models.CharField(max_length=190)
+
+    def __str__ (self):
+        return "%s" % (self.nome)
+
+
+
+class Especialidade(models.Model):
+    curso = models.ForeignKey(Cursos, on_delete=models.CASCADE, parent_link=True)
     nome = models.CharField(max_length=160)
 
     def __str__ (self):
         return "%s" % (self.nome)
-    
+
 
 class Pagamento_semestre(models.Model):
     nome = models.CharField(max_length=160)

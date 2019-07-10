@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
-from core_help.opcoes_escolha import GRAU_ACDAEMICO_MODULOS, GRAU_ACDAEMICO_DOCENTE, ESCOLHA_DOCENTE_FUNCIONARIO
-from secretaria.models import Pessoa, Estudante,  Profissao, Modulo_Disciplina, Docente, Funcionario, Monografia
+from core_help.opcoes_escolha import GRAU_ACDAEMICO_MODULOS, GRAU_ACDAEMICO_DOCENTE, CATEGORIA_UTILIZADOR
+from secretaria.models import Pessoa, Estudante,  Profissao, Modulo_Disciplina, Monografia
 # forms.py
 # @Author : Gunza Ismael (7ilipe@gmail.com)Mon
 # @Link   : 
@@ -16,7 +16,6 @@ class PessoaForm(ModelForm):
     residencia = forms.CharField(max_length=50, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
     telefone = forms.CharField(max_length=18, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
     email = forms.EmailField(max_length=80, required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'id':'validate_email'}))
-    escolha_docente_funcionario = forms.CharField(max_length=20, required=False, widget=forms.Select(choices=ESCOLHA_DOCENTE_FUNCIONARIO, attrs={'class': 'form-control'}))
     
     class Meta:
         model = Pessoa
@@ -51,7 +50,6 @@ class EstudanteForm(ModelForm):
 
 
 class ProfissaoForm(ModelForm):
-    instituicao = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
     funcao = forms.CharField(max_length=100,required=False,  widget=forms.TextInput(attrs={'class': 'form-control'}))
     area_profissional = forms.CharField(max_length=100,required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
     ano_experiencia = forms.CharField(max_length=20,required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
@@ -59,7 +57,11 @@ class ProfissaoForm(ModelForm):
     
     class Meta:
         model = Profissao
-        fields = ['instituicao', 'funcao', 'area_profissional', 'ano_experiencia', 'localizacao']  
+        fields = ['instituicao', 'funcao', 'area_profissional', 'ano_experiencia', 'localizacao']
+        widgets = {
+            'instituicao': forms.TextInput(attrs={'class': 'form-control'}),
+
+        }
 
 
 
@@ -100,29 +102,5 @@ class MonografiaForm(ModelForm):
                 return estudante
         except Pessoa.DoesNotExist:
             raise forms.ValidationError(" o Numero do estudante não é valido")
-                
-        
 
-
-class DocenteForm(ModelForm):
-    class Meta:
-        model = Docente
-        fields = ['pessoa', 'numero_docente', 'grau_academico']
-        widgets = {
-            'numero_docente': forms.TextInput(attrs={'class': 'form-control'}),
-            'grau_academico': forms.Select(attrs={'class': 'form-control'}),
-
-        }
-
-
-
-class FuncinarioForm(ModelForm):
-    class Meta:
-        model = Funcionario
-        fields = ['pessoa', 'cargo', 'grau_academico']
-        widgets = {
-            'cargo': forms.TextInput(attrs={'class': 'form-control'}),
-            'grau_academico': forms.Select(attrs={'class': 'form-control'}),
-
-        }
 

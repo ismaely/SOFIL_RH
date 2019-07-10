@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'secretaria',
     'estatistica',
     'core_help',
-    'financas'
+    'financas',
+    'utilizador',
 ]
 
 MIDDLEWARE = [

@@ -4,11 +4,6 @@ from core_help.ajuda import retorna_id_recebendo_bi
 
 
 
-def login(request):
-    context = {}
-    return render (request, 'login.html', context)
-
-
 
 def home(request):
     context = {}
@@ -24,7 +19,7 @@ def listar_dados_estudante(request):
 
 
 
-def listar_modulos(request): 
+def listar_modulos(request):
     lista =[]
     lista = Modulo_Disciplina.objects.select_related('semestre').all()
     context = {'lista': lista}
@@ -36,7 +31,7 @@ def registar_confirma_matricula(request):
     context = {}
     return render (request, 'secretaria/registar_confirma_matricula.html', context)
 
-
+ 
 
 def registar_Monografia(request):
     form = MonografiaForm(request.POST or None)
@@ -63,29 +58,6 @@ def registar_modulo(request):
 
     context = {'form':form,}
     return render (request, 'secretaria/registar_modulo.html', context)
-
-
-
-def registar_docente_funcionario(request):
-    form = PessoaForm(request.POST or None) 
-    form2 = DocenteForm(request.POST or None)
-    form3 = FuncinarioForm(request.POST or None)
-    if request.method == 'POST':
-        if form.is_valid() and form2.is_valid() and form3.is_valid():
-            pessoa = form.save()
-            if request.POST['escolha_docente_funcionario'] == 'DOCENTE':
-                docente = form2.save(commit=False)
-                docente.pessoa_id = pessoa.id
-                docente.save()
-            if request.POST['escolha_docente_funcionario'] == 'FUNCIONARIO':
-                funcionario = form3.save(commit=False)
-                funcionario.pessoa_id = pessoa.id
-                funcionario.save()
-            sweetify.success(request, 'Dados Registado com sucesso!....', button='Ok', timer='3100')
-            return HttpResponseRedirect(reverse('secretaria:home'))
-   
-    context = {'form':form, 'form2': form2, 'form3': form3}
-    return render (request, 'secretaria/registar_docente_funcionario.html', context)
 
 
 

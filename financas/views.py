@@ -5,7 +5,6 @@ from core_help.ajuda import retorna_id_recebendo_bi
 
 
 
-
 def listar_pagamento(request):
     lista =[]
     lista = Pagamento.objects.order_by('-id')

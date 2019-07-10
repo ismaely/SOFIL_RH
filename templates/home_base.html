@@ -2,7 +2,7 @@
 <!--
 @File   : home.html
 @Author : Gunza Ismael ({__email})
-@Link   : 
+@Link   :
 @Date   : 16/06/2019, 11:58:58
 -->
 <html lang="en">
@@ -100,14 +100,16 @@
                         </a>
                         <ul class="nav nav-list tree">
                             <li><a href="{% url 'secretaria:registar-cadastro' %}"> Registar Cadastro estudante </a></li>
-                            <!-- <li><a href="{% url 'secretaria:registar-funcionario' %}"> Registar Docente/Funcionario </a></li> -->
+
                             <li><a href="{% url 'secretaria:registar-monografia' %}"> Registar Monografia</a></li>
-                            <li><a href="{% url 'secretaria:registar-modulo' %}"> Registar Novo Modulo</a></li>
+                            <li><a href="{% url 'secretaria:registar-modulo' %}"> Registar Modulo de Mestrado</a></li>
+                            <li><a href=""> Registar Modulo Pós-Graduação</a></li>
                             <li><a href="{% url 'secretaria:confirma-matricula' %}"> Confirmar Matricula</a></li>
+                            <li><a href="#"> Atribuir Número de Matricula</a></li>
                             <li><a href="#"> Emitir Declaração</a></li>
                             <li><a href="#"> Lançar Nota do Estudante</a></li>
                             <li><a href="{% url 'secretaria:listar-dados-estudante' %}"> Listar Dados de Estudante</a></li>
-                            <li><a href="{% url 'secretaria:listar-modulos' %}"> Listar Dados de Estudante</a></li>
+                            <li><a href="{% url 'secretaria:listar-modulos' %}"> Listar Modulos / Disciplinas</a></li>
 
 
                         </ul>
@@ -149,6 +151,7 @@
                     <li class="ripple"><a class="tree-toggle nav-header"><span class="fa fa-user"></span> Utilizador
                             <span class="fa-angle-right fa right-arrow text-right"></span> </a>
                         <ul class="nav nav-list tree">
+                            <li><a href="{% url 'utilizador:registar-utilizador' %}"> Registar Utilizador </a></li>
                             <li><a href="#"> Criar Conta de Utilizador</a></li>
                             <li><a href="#">Listar Conta de Utlizador</a></li>
                             <li><a href="#">Consultar Utilizador</a></li>
@@ -172,9 +175,6 @@
             </div>
 
             {% block corpo %} kfjkd {% endblock %}
-
-
-
             <div class="col-md-12">
                 <div class="panel bg-green text-white">
 
@@ -183,9 +183,6 @@
         </div>
     </div>
     <!-- end: content -->
-
-
-
 
     </div>
 

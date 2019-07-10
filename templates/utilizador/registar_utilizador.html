@@ -15,7 +15,7 @@
     <div class="col-md-12">
         <div class="col-md-12 panel">
             <div class="col-md-12 panel-heading">
-                <h4>Registar Cadastro do Funcionario</h4>
+                <h4>Registar Utilizador</h4>
             </div>
             <div class="col-md-12">
 
@@ -38,7 +38,7 @@
                                         <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Dados Académicos">
 
                                             <span class="round-tab">
-                                                <i class="glyphicon glyphicon-briefcase"></i>
+                                                <i class="glyphicon glyphicon-lock"></i>
                                                 </span>
 
                                         </a>
@@ -47,7 +47,7 @@
                                 </ul>
                             </div>
 
-                            <form role="form" action="{% url 'secretaria:registar-funcionario' %}" method="POST">
+                            <form role="form" action="{% url 'utilizador:registar-utilizador' %}" method="POST">
                                 <div class="tab-content">
                                     {% csrf_token %} {% autoescape on %}
                                     <div class="tab-pane active" role="tabpanel" id="step1">
@@ -100,7 +100,6 @@
                                             <div class="form-group " style="margin-top:20px !important;">
                                                 <span class="bar"></span>
                                                 <label>Naturalidade</label> {{ form.naturalidade }} {{ form.naturalidade.errors }}
-
                                             </div>
 
                                             <div class="form-group " style="margin-top:20px !important;">
@@ -113,57 +112,45 @@
 
                                     <!-- 2 BLOCO--->
                                     <div class="tab-pane" role="tabpanel" id="step2">
-                                        <div class="col-md-4">
-                                                <div class="form-group " style="margin-top:20px !important;">
-                                                        <span class="bar"></span>
-                                                        <label>Opção</label> {{ form.escolha_docente_funcionario }} {{ form.escolha_docente_funcionario.errors }}
-        
-                                                    </div>
-                                            
 
-                                                <div class="form-group " id="cat_docente" style="display:none; margin-top:20px !important; ">
-                                                    <span class="bar"></span>
-                                                    <label>Numero do Docente</label> {{ form2.numero_docente }} {{ form2.numero_docente.errors }}
-                                                </div>
-                                                <div class="form-group"  style="margin-top:20px !important;">
-                                                        <div id="cat_funcionario" style="display:none">
-                                                        <span class="bar"></span>
-                                                        <label>Cargo</label> {{ form3.cargo }} {{ form3.cargo.errors }}
-                                                     </div>
-                                                </div>
+                                        <div class="col-md-4">
+                                            <!-- inicio do primeiro bloco-->
+                                            <div class="form-group" style="margin-top:20px !important;">
+                                                <span class="bar"></span>
+                                                <label>Telefone</label> {{ form.telefone }} {{ form.telefone.errors }}
+                                            </div>
+                                            <div class="form-group" style="margin-top:20px !important;">
+                                                <span class="bar"></span>
+                                                <label>Função</label> {{ form2.categoria }} {{ form2.categoria.errors }}
+
+                                            </div>
 
                                         </div>
                                         <div class="col-md-4">
                                             <!-- inicio do primeiro bloco-->
+
                                             <div class="form-group " style="margin-top:20px !important;">
                                                 <span class="bar"></span>
                                                 <label>E-mail</label> {{ form.email }} {{ form.email.errors }}
 
                                             </div>
-
-                                            <div id="cat_docente" style="display:none">
-                                                <div class="form-group " style="margin-top:20px !important;">
-                                                    <span class="bar"></span>
-                                                    <label>Grau Académico</label> {{ form2.grau_academico }} {{ form2.grau_academico.errors }}
-                                                </div>
-                                            </div>
-
+                                            &nbsp; &nbsp;
                                             <ul class="list-inline pull-right">
+                                                <p>
+                                                    &nbsp; &nbsp;
+                                                </p>
+                                                <p>
+                                                    &nbsp; &nbsp;
+                                                </p>
                                                 <li><button type="button" class="btn btn-success prev-step">Voltar</button></li>
                                                 <li><button type="submit" class="btn btn-primary next-step">Salvar</button></li>
                                             </ul>
+
                                         </div>
                                         <div class="col-md-4">
-                                            <!-- inicio do primeiro bloco-->
-                                                <div class="form-group" style="margin-top:20px !important;">
-                                                    <span class="bar"></span>
-                                                    <label>Telefone</label> {{ form.telefone }} {{ form.telefone.errors }}
-                                                </div>
-                                            
-
                                             <div class="form-group " style="margin-top:20px !important;">
                                                 <span class="bar"></span>
-                                                <label>Universidade</label> {{ form2.universidade }} {{ form2.universidade.errors }}
+                                                <label>Nome de Utilizador</label> {{ form2.nome_utilizador }} {{ form2.nome_utilizador.errors }}
                                             </div>
 
                                         </div>

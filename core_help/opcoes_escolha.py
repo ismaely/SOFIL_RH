@@ -6,10 +6,18 @@ GENERO = (
     ('Femenino', 'Femenino'),
 )
 
-ESCOLHA_DOCENTE_FUNCIONARIO = (
-    ('DOCENTE', 'DOCENTE'),
-    ('FUNCIONARIO', 'FUNCIONARIO'),
+
+
+CATEGORIA_UTILIZADOR = (
+    ('Gestor-Pos-Graduacao', 'Gestor Pós-Graduação'),
+    ('Gestor-Mestrado', 'Gestor Mestrado'),
+    ('Gestor-Financas', 'Gestor Finanças'),
+    ('Administrador-Pos-Graduacao', 'Administrador Pós-Graduação'),
+    ('Administrador-Mestrado', 'Administrador Mestrado'),
+    ('Administrador-Geral', 'Administrador Geral'),
 )
+
+
 
 ESTADO_CIVIL = (
     ('Solteiro (a)', 'solteiro (a)'),

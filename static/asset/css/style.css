@@ -507,7 +507,7 @@ p.quote:before {
 /*start: Login*/
 
 .form-signin-wrapper {
-    background-image: url("/static/asset/img/cppgl.jpg");
+    background-image: url("/static/asset/img/direito.jpg");
     background-position: center;
     background-size: 61%;
     /*background: #fff !important;*/
@@ -2250,7 +2250,7 @@ ul li a:focus {
 }
 #left-menu .sub-left-menu .tree li {
     padding: 0px;
-    padding-left: 5%;
+    padding-left: 2%;
 }
 .opener-left-menu {
     float: left;

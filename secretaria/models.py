@@ -38,27 +38,6 @@ class Estudante(models.Model):
 
 
 
-class Docente(models.Model):
-    pessoa= models.ForeignKey(Pessoa, on_delete=models.CASCADE, parent_link=True)
-    numero_docente= models.CharField(max_length=10, blank=True, null=True)
-    grau_academico = models.CharField(max_length=50, choices=GRAU_ACDAEMICO_DOCENTE, blank=True, null=True)
-
-    def __str__ (self):
-        return self.id
-
-
-
-class Funcionario(models.Model):
-    pessoa= models.ForeignKey(Pessoa, on_delete=models.CASCADE, parent_link=True, blank=True, null=True)
-    cargo = models.CharField(max_length=50,blank=True, null=True)
-    grau_academico = models.CharField(max_length=50, choices=GRAU_ACDAEMICO_DOCENTE, blank=True, null=True)
-    
-    def __str__ (self):
-        return self.id
-
-
-
-
 class Profissao(models.Model):
     estudante = models.ForeignKey(Estudante, on_delete=models.CASCADE, parent_link=True)
     instituicao = models.CharField(max_length=190, blank=True, null=True, default="--")

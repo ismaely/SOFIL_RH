@@ -40,24 +40,24 @@
 
     <div class="container">
 
-        <form class="form-signin">
+        <form class="form-signin" action="{% url 'utilizador:login' %}" method="POST">
             <div class="panel periodic-login">
                 <span class="atomic-number"></span>
                 <div class="panel-body text-center">
                     <div class="col-md-12 col-sm-8">
 
-                        <img src="{% static '/asset/img/direito.jpg' %}" class="col-md-12 col-sm-12 img-circle" />
+                        <img src="{% static '/asset/img/cppgl.jpg' %}" class="col-md-12 col-sm-12 img-circle" />
 
                     </div>
                     <p></p>
                     <i class="icons icon-arrow-down"></i>
                     <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                        <input type="text" class="form-text" name="username" required>
+                        {{ form.nome_utilizador }}
                         <span class="bar"></span>
-                        <label>Username</label>
+                        <label>Nome de utilizador</label>
                     </div>
                     <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                        <input type="password" class="form-text" name="senha" required>
+                        {{ form.senha }}
                         <span class="bar"></span>
                         <label>Password</label>
                     </div>
