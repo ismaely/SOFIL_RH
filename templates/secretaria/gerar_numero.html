@@ -1,0 +1,45 @@
+<!DOCTYPE html> {% extends 'home_base.html' %}{% block corpo %}{% load static %}
+<!--
+@File   : registar_modulo.html
+@Author : Gunza Ismael ({__email})
+@Link   : 
+@Date   : 17/06/2019, 02:58:56
+-->
+
+<div class="col-md-12 modal-example">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <h4>Atribuir Número de Estudante</h4>
+            </div>
+            <div class="panel-body">
+
+                <div class="col-md-12">
+                    <div class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Número do B.I</h4>
+                                </div>
+                                <form role="form" action="{% url 'secretaria:atrbuir-estudante' %}" method="POST">
+                                    {% csrf_token %} {% autoescape on %}
+                                    <div class="modal-body">
+                                        {{ form.bi }} {{ form.bi.errors }}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">SALVAR </button>
+                                    </div>
+                                    {% endautoescape %}
+                                </form>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {% endblock %}

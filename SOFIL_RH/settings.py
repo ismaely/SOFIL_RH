@@ -24,9 +24,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'hh4v2)ve1q0kg@9t&lcju_650)o%vew)or!rfygxt6pjt@l1e_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+X_FRAME_OPTIONS = 'DENY'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+#APPEND_SLASH = True
 
 # Application definition
 
@@ -143,5 +145,12 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 #STATIC_ROOT = '{}/static'.format(BASE_DIR)
 MEDIA_ROOT = '{}/media'.format(BASE_DIR)
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+#MEDIA_ROOT = os.path.join(BASE_DIR, '/media')
 MEDIA_URL = '/media/'
+
+LOGIN_REDIRECT_URL = '/login/' 
+LOGOUT_REDIRECT_URL = '/'
+
+
+#SENHA PADRÃO DO SISTEMA
+SENHA_PADRAO = "cpppgl"

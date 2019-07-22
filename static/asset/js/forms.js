@@ -5,26 +5,19 @@
  * @Date   : 27/06/2019, 01:26:48
  */
 
+$(document).ready(function () {
+// variavel
 
-$('#id_categoria').click(troca_categoria);
-
-if($('#id_escolha_docente_funcionario').val() == "DOCENTE") {
-    document.getElementById('cat_docente').style.display = '';
-}
-if($('#id_escolha_docente_funcionario').val() == "FUNCIONARIO") {
-    document.getElementById('cat_funcionario').style.display = '';
-}
+    // MASCAR
+$('.mask-phone').mask('000-000-000');
+$('.mask-bi').mask('000000000SS000');
 
 
-function troca_categoria (){
-    if ($('#id_escolha_docente_funcionario').val() == "DOCENTE") {
-         document.getElementById('cat_docente').style.display = '';
-         document.getElementById('cat_funcionario').style.display = 'none';
-     }
-    
-      if ($('#id_escolha_docente_funcionario').val() == "FUNCIONARIO") {
-           document.getElementById('cat_funcionario').style.display = '';
-           document.getElementById('cat_docente').style.display = 'none';
-       }
+});
 
-}
+// para meter as letras maiusculas
+$(function() {
+    $('.maiuscula').keyup(function() {
+       this.value = this.value.toLocaleUpperCase();
+    });
+});

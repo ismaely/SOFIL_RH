@@ -27,11 +27,6 @@ ESTADO_CIVIL = (
 
 )
 
-GRAU_ACDAEMICO_MODULOS = (
-    ('-----', '-----'),
-    ('Pós-Graduação', 'Pós-Graduação'),
-    ('Mestrado', 'Mestrado'),
-)
 
 
 ANO_NIVEL = (

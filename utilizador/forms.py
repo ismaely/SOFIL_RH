@@ -17,12 +17,12 @@ class Utilizador_Form(forms.Form):
 
 
 class LoginForm(forms.Form):
-    senha = forms.CharField(max_length=90, widget=forms.PasswordInput(attrs={'placeholder': 'password'}))
-    nome_utilizador = forms.CharField(max_length=80, widget=forms.TextInput(attrs={'placeholder': 'Nome de utilizador'}))
+    senha = forms.CharField(max_length=90, widget=forms.PasswordInput(attrs={'class': 'form-text'}))
+    nome_utilizador = forms.CharField(max_length=80, widget=forms.TextInput(attrs={'class': 'form-text'}))
 
 
 
 class Troca_SenhaPadrao_Form(forms.Form):
-    senha = forms.CharField(max_length=90, widget=forms.PasswordInput(attrs={'placeholder': 'password'}))
-    confirma_senha = forms.CharField(max_length=90, widget=forms.PasswordInput(attrs={'placeholder': 'password'}))
-    nome_utilizador = forms.CharField(max_length=80, widget=forms.TextInput(attrs={'placeholder': 'Nome de utilizador'}))
+    senha = forms.CharField(max_length=90, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    confirma_senha = forms.CharField(max_length=90, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    nome_utilizador = forms.CharField(max_length=80, widget=forms.TextInput(attrs={'class': 'form-control'}))

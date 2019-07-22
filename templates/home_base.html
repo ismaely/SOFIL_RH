@@ -30,6 +30,8 @@
     <link href="{% static '/asset/css/estilo.css' %}" rel="stylesheet">
     <!-- end: Css -->
 
+
+
     <link rel="shortcut icon" href="{% static '/asset/img/cppgl.jpg' %}">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -63,7 +65,7 @@
                             <li class="more">
                                 <ul>
                                     <li><a href=""><span class="fa fa-cogs"></span></a></li>
-                                    <li><a href=""><span class="fa fa-power-off "></span></a></li>
+                                    <li><a href="{% url 'utilizador:sair' %}"><span class="fa fa-power-off "></span></a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -73,9 +75,7 @@
         </div>
     </nav>
     <!-- end: Header -->
-
     <div class="container-fluid mimin-wrapper">
-
         <!-- start:Left Menu -->
         <div id="left-menu">
             <div class="sub-left-menu scroll">
@@ -99,19 +99,55 @@
                             <span class="fa-angle-right fa right-arrow text-right"></span>
                         </a>
                         <ul class="nav nav-list tree">
-                            <li><a href="{% url 'secretaria:registar-cadastro' %}"> Registar Cadastro estudante </a></li>
-
-                            <li><a href="{% url 'secretaria:registar-monografia' %}"> Registar Monografia</a></li>
-                            <li><a href="{% url 'secretaria:registar-modulo' %}"> Registar Modulo de Mestrado</a></li>
-                            <li><a href=""> Registar Modulo Pós-Graduação</a></li>
+                            <li><a href="{% url 'secretaria:atrbuir-estudante' %}"> Atribuir Número de Estudante</a></li>
+                            <li><a href="{% url 'secretaria:registar-cadastro' %}"> Cadastrar estudante </a></li>
                             <li><a href="{% url 'secretaria:confirma-matricula' %}"> Confirmar Matricula</a></li>
-                            <li><a href="#"> Atribuir Número de Matricula</a></li>
-                            <li><a href="#"> Emitir Declaração</a></li>
-                            <li><a href="#"> Lançar Nota do Estudante</a></li>
-                            <li><a href="{% url 'secretaria:listar-dados-estudante' %}"> Listar Dados de Estudante</a></li>
-                            <li><a href="{% url 'secretaria:listar-modulos' %}"> Listar Modulos / Disciplinas</a></li>
+                            <li><a href="{% url 'secretaria:registar-monografia' %}"> Inscrição da Dissertação</a></li>
+                            <li><a href=""> Consultar Dados</a></li>
+                            <li><a href="{% url 'secretaria:emitir-delaracao' %}">Emitir Declarações</a></li>
+                            <li><a href="{% url 'secretaria:lancamento-nota' %}">Lançamento de Nota</a></li>
+                            <li class="ripple">
+                                <a class="sub-tree-toggle nav-header">
+                                    <span class="fa fa-th-large"></span> Cadastrar Modulo
+                                    <span class="fa-angle-right fa right-arrow text-right"></span>
+                                </a>
+                                <ul class="nav nav-list sub-tree">
+                                    <li><a href="{% url 'secretaria:registar-modulo-mestrado' %}">Mestrado</a></li>
+                                    <li><a href="{% url 'secretaria:registar-modulo-posGraduacao' %}">Pós-graduação</a></li>
+                                </ul>
+                            </li>
 
+                            <li class="ripple">
+                                <a class="sub-tree-toggle nav-header">
+                                    <span class="fa fa-th-list"></span> Listar Monografias
+                                    <span class="fa-angle-right fa right-arrow text-right"></span>
+                                </a>
+                                <ul class="nav nav-list sub-tree">
+                                    <li><a href="{% url 'secretaria:listar-monografia-mestrado' %}">Mestrado</a></li>
+                                    <li><a href="{% url 'secretaria:listar-monografia-posGraduacao' %}">Pós-graduação</a></li>
+                                </ul>
+                            </li>
 
+                            <li class="ripple">
+                                <a class="sub-tree-toggle nav-header">
+                                    <span class="fa fa-th-list"></span> Listar Modulos
+                                    <span class="fa-angle-right fa right-arrow text-right"></span>
+                                </a>
+                                <ul class="nav nav-list sub-tree">
+                                    <li><a href="{% url 'secretaria:listar-modulos-mestrado' %}">Mestrado</a></li>
+                                    <li><a href="{% url 'secretaria:listar-modulos-posgraduacao' %}">Pós-graduação</a></li>
+                                </ul>
+                            </li>
+                            <li class="ripple">
+                                <a class="sub-tree-toggle nav-header">
+                                    <span class="fa fa-th-list"></span> Lista de Estudante
+                                    <span class="fa-angle-right fa right-arrow text-right"></span>
+                                </a>
+                                <ul class="nav nav-list sub-tree">
+                                    <li><a href="{% url 'secretaria:listar-dados-estudante' %}">Inscritos em Mestrado</a></li>
+                                    <li><a href="">Inscritos em Pós-graduação</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                     <li class="ripple">
@@ -120,9 +156,27 @@
                             <span class="fa-angle-right fa right-arrow text-right"></span>
                         </a>
                         <ul class="nav nav-list tree">
-                            <li><a href="#">Estudantes</a></li>
-                            <li><a href="#">Curso</a></li>
-                            <li><a href="#"> Anual</a></li>
+                            <li class="ripple">
+                                <a class="sub-tree-toggle nav-header">
+                                    <span class="fa fa-bar-chart-o"></span> Mestrado
+                                    <span class="fa-angle-right fa right-arrow text-right"></span>
+                                </a>
+                                <ul class="nav nav-list sub-tree">
+                                    <li><a href="">Por Especialidade</a></li>
+                                    <li><a href="">Por Curso</a></li>
+                                    <li><a href="">Por Semestre</a></li>
+                                </ul>
+                            </li>
+                            <li class="ripple">
+                                <a class="sub-tree-toggle nav-header">
+                                    <span class="fa fa-line-chart"></span> Pós-graduação
+                                    <span class="fa-angle-right fa right-arrow text-right"></span>
+                                </a>
+                                <ul class="nav nav-list sub-tree">
+                                    <li><a href="">Por Curso</a></li>
+                                    <li><a href="">Por Semestre</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                     <li class="ripple">
@@ -145,7 +199,6 @@
                             <li><a href="#">Gerar Relatorio</a></li>
                             <li><a href="#">Listar Relatorios</a></li>
                             <li><a href="#">Consultar Dados </a></li>
-
                         </ul>
                     </li>
                     <li class="ripple"><a class="tree-toggle nav-header"><span class="fa fa-user"></span> Utilizador
@@ -206,10 +259,12 @@
     <script src="{% static '/asset/js/plugins/jquery.vmap.min.js' %}"></script>
     <script src="{% static '/asset/js/plugins/maps/jquery.vmap.world.js' %}"></script>
     <script src="{% static '/asset/js/plugins/jquery.vmap.sampledata.js' %}"></script>
+    <script src="{% static '/asset/js/plugins/jquery.mask.min.js' %}"></script>
     <script src="{% static '/asset/js/plugins/chart.min.js' %}"></script>
     <script src="{% static '/asset/js/wizard.js' %}"></script>
     <script src="{% static '/asset/js/sweetalert2.js' %}"></script>
     <script src="{% static '/asset/js/forms.js' %}"></script>
+    <script src="{% static '/asset/js/nota.js' %}"></script>
 
 
     <!-- custom -->
@@ -217,6 +272,7 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('#datatables-example').DataTable();
+
         });
     </script>
     {% load sweetify %} {% sweetify %}

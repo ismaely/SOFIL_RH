@@ -1,5 +1,5 @@
 from core_help.includes import *
-from core_help.ajuda import retorna_id_recebendo_bi
+from core_help.core import retorna_id
 # Create your views here.
 
 
@@ -66,7 +66,7 @@ def sair(request):
     try:
         #del request.session['salakiaku']
         logout(request)
-        return HttpResponseRedirect(reverse('utilizador:sair'))
+        return HttpResponseRedirect(reverse('utilizador:login'))
     except Exception as e:
         raise Http404("erro a terminar a sessão %s " % (e))
 

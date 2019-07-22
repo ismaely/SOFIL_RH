@@ -53,7 +53,7 @@ class Cursos(models.Model):
     nome = models.CharField(max_length=190)
 
     def __str__ (self):
-        return "%s" % (self.nome)
+        return "%s -> %s" % (self.nome, self.grau_academico.nome)
 
 
 

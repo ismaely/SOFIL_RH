@@ -11,6 +11,7 @@ app_name = 'utilizador'
 urlpatterns = [
     #path('', views.login, name='login'),
     path('login/', views.login, name='login'),
+    path('accounts/login/', views.login, name='login'),
     path('sair/', views.sair, name='sair'),
     path('registar_utilizador/', views.registar_utilizador, name='registar-utilizador'),
     path('troca_padrao/', views.troca_senha_padrao, name='troca-senha-padrao'),

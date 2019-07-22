@@ -1,5 +1,5 @@
 from core_help.includes import *
-from core_help.ajuda import retorna_id_recebendo_bi
+from core_help.core import retorna_id
 
 # Create your views here.
 
@@ -18,7 +18,7 @@ def registar_Pagamento(request):
     if request.method == 'POST':
         if form.is_valid():
             pessoa = form.save(commit=False)
-            pessoa.estudante_id = retorna_id_recebendo_bi(request.POST.get('estudante'))
+            pessoa.estudante_id = retorna_id(request.POST.get('estudante'))
             pessoa.save()
             sweetify.success(request, 'Pagamento Registado com sucesso!....', button='Ok', timer='3100')
             return HttpResponseRedirect(reverse('secretaria:home'))
