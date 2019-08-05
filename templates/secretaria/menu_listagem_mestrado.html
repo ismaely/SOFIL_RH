@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--
+@File   : menu_listagem_mestrado.html
+@Author : Gunza Ismael ({__email})
+@Link   : 
+@Date   : 28/07/2019, 21:25:25
+-->
+<!DOCTYPE html> {% extends 'home_base.html' %}{% block corpo %}{% load static %}
+
+<div id="">
+    <div class="form-element">
+        <div class="col-md-12 padding-0">
+            <div class="col-md-12">
+                <div class="panel form-element-padding">
+                    <div class="panel-heading">
+                        {% if escolha == 1 %}
+                        <h4>Menu de Criação de Listagem Normal</h4>
+                        {% else %}
+                        <h4>Menu Para Gerar Listagem em PDF</h4>
+                        {% endif %}
+
+                    </div>
+                    <div class="panel-body" style="padding-bottom:30px;">
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-10">
+
+                            {% if escolha == 1 %}
+                            <form role="form" action="{% url 'secretaria:listar-dados-nominal' %} " method="POST">
+                                {% else %}
+                                <form role="form" action="{% url 'secretaria:lista-estudante-pdf' %} " method="POST" target="_blank">
+                                    {% endif %} {% csrf_token %} {% autoescape on %}
+                                    <!-- inicio do primeiro bloco-->
+                                    <div class="col-md-6">
+                                        <div class="form-group " style="margin: -10px 0px !important;">
+                                            <label class="col-sm-12 control-label">Grau Academico</label> {{ form.grau }} {{ form.grau.errors }}
+                                        </div>
+                                        <div class="form-group " style="margin: -10px 0px !important;">
+                                            <label class="col-sm-12 control-label ">Ano </label> {{ form.ano }} {{ form.ano.errors }}
+                                        </div>
+                                        <div class="form-group " style="margin: -10px 0px !important;">
+                                            <label class="col-sm-12 control-label ">Semestre </label> {{ form.semestre }} {{ form.semestre.errors }}
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group " style="margin: -10px 0px !important;">
+                                            <label class="col-sm-12 control-label ">Curso</label> {{ form.curso }} {{ form.curso.errors }}
+                                        </div>
+                                        <div class="form-group " style="margin: -10px 0px !important;">
+                                            <label class="col-sm-12 control-label ">Especialidade</label> {{ form.especialidade }} {{ form.especialidade.errors }}
+                                        </div>
+                                        <div class="form-group " style="margin: -10px 0px !important;">
+                                            <label class="col-sm-12 control-label ">Data</label> {{ form.data_entrada }} {{ form.data_entrada.errors }}
+                                        </div>
+                                        {% if escolha == 1 %}
+                                        <ul class="form-group list-inline ">
+                                            <li><button type="submit" class="col-md-12 btn btn-primary">LISTAR</button></li>
+                                        </ul>
+                                        {% else %}
+                                        <ul class="form-group list-inline ">
+                                            <li><button type="submit" class="col-md-12 btn btn-primary">GERAR LISTA</button></li>
+                                        </ul>
+                                        {% endif %}
+
+                                    </div>
+
+
+                                    {% endautoescape %}
+                                </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}

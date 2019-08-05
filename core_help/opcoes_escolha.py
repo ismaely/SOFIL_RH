@@ -2,10 +2,21 @@
 # ficheiro de opçoes de escolha de formulario e modelo
 
 GENERO = (
-    ('Masculino', 'Masculino'),
-    ('Femenino', 'Femenino'),
+    ('M', 'Masculino'),
+    ('F', 'Femenino'),
 )
 
+
+OPCAO_NOTA = (
+    ('Epoca-Normal', 'Epoca Normal'),
+    ('Recurso', 'Recurso'),
+)
+
+GRAU= (
+    ('', '-----------'),
+    ('1', 'Pós-Graduação'),
+    ('2', 'Mestrado'),
+)
 
 
 CATEGORIA_UTILIZADOR = (
@@ -22,7 +33,6 @@ CATEGORIA_UTILIZADOR = (
 ESTADO_CIVIL = (
     ('Solteiro (a)', 'solteiro (a)'),
     ('Casado (a)', 'casado (a)'),
-    ('Divorciado (a)', 'Divorciado (a)'),
     ('Viuvo (a)', 'viuvo (a)'),
 
 )

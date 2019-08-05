@@ -1,5 +1,5 @@
 from django.db import models
-from core_help.opcoes_escolha import GENERO, ESTADO_CIVIL, GRAU_ACDAEMICO_DOCENTE
+from core_help.opcoes_escolha import GENERO, ESTADO_CIVIL, GRAU_ACDAEMICO_DOCENTE, OPCAO_NOTA
 from core_help.models import Provincias, Instituicao_superior, Semestre, Especialidade, Ano, Cursos
 
 # Create your models here.
@@ -108,8 +108,8 @@ class Matricula(models.Model):
 
 class Nota(models.Model):
     estudante = models.ForeignKey(Estudante, on_delete=models.CASCADE, parent_link=True)
+    matricula = models.ForeignKey(Matricula, on_delete=models.CASCADE, parent_link=True)
     curso = models.ForeignKey(Cursos, on_delete=models.CASCADE, parent_link=True)
-    especialidade = models.ForeignKey(Especialidade, on_delete=models.SET_NULL, blank=True, null=True, parent_link=True)
     modulo = models.ForeignKey(Modulo_Disciplina, on_delete=models.CASCADE, parent_link=True)
     nota = models.CharField(max_length=2)
     data_entrada = models.DateField()

@@ -10,7 +10,11 @@
     <div class="col-md-12">
         <div class="panel">
             <div class="panel-heading">
+                {% if escolha == 2 %}
+                <h4>Consultar Dados do Estudante </h4>
+                {% else %}
                 <h4>Emitir Declaração do Estudante</h4>
+                {% endif %}
             </div>
             <div class="panel-body">
 
@@ -19,18 +23,26 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h4 class="modal-title">Nº Estudante/B.I Nº</h4>
+                                    <h4 class="modal-title">Nº Estudante / Nº BI</h4>
                                 </div>
-                                <form role="form" action="{% url 'secretaria:emitir-delaracao' %}" method="POST" target="_blank">
-                                    {% csrf_token %} {% autoescape on %}
-                                    <div class="modal-body">
-                                        {{ form.bi }} {{ form.bi.errors }}
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary">EMITIR </button>
-                                    </div>
-                                    {% endautoescape %}
-                                </form>
+                                {% if escolha == 2 %}
+                                <form role="form" action="{% url 'secretaria:consultar-dados-pessoal' %}" method="POST">
+                                    {% else %}
+                                    <form role="form" action="{% url 'secretaria:emitir-delaracao' %}" method="POST" target="_blank">
+                                        {% endif %} {% csrf_token %} {% autoescape on %}
+                                        <div class="modal-body">
+                                            {{ form.bi }} {{ form.bi.errors }}
+                                        </div>
+                                        {% if escolha == 2 %}
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">CONSULTAR</button>
+                                        </div>
+                                        {% else %}
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">EMITIR </button>
+                                        </div>
+                                        {% endif %} {% endautoescape %}
+                                    </form>
                             </div>
                             <!-- /.modal-content -->
                         </div>

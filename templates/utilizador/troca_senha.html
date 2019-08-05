@@ -39,37 +39,35 @@
     <div class="container">
 
         <form class="form-signin" action="{% url 'utilizador:troca-senha-padrao' %}" method="POST">
+            {% csrf_token %} {% autoescape on %}
             <div class="panel periodic-login">
-                <span class="atomic-number"> Mudar a Senha</span>
+                <span class="atomic-number"> Troca a Senha de Utilizador !</span>
                 <div class="panel-body text-center">
                     <div class="col-md-12 col-sm-8">
                         <img src="{% static '/asset/img/cppgl.jpg' %}" class="col-md-12 col-sm-12 img-circle" />
                     </div>
                     <p></p>
                     <i class="icons icon-arrow-down"></i>
-                    <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                        {{ form.nome_utilizador }}
-                        <span class="bar"></span>
-                        <label>Nome de utilizador</label>
+                    <div class="form-group " style="margin-top:8px !important;">
+                        <label>Nome de utilizador</label> {{ form.nome_utilizador }}{{ form.nome_utilizador.errors }}
+
                     </div>
-                    <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                        {{ form.senha }}
-                        <span class="bar"></span>
-                        <label>Password</label>
+                    <div class="form-group " style="margin-top:5px !important;">
+                        <label>Nova Password</label> {{ form.senha }}{{ form.senha.errors }}
+
                     </div>
-                    <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                        {{ form.senha }}
-                        <span class="bar"></span>
-                        <label>Confirma Password</label>
+                    <div class="form-group" style="margin-top:5px !important;">
+                        <label>Confirma Password</label> {{ form.confirma_senha }}{{ form.confirma_senha.errors }}
+
                     </div>
-                    <label class="pull-left ">
-                        </label>
+
                     <input type="submit" class="btn col-md-12" value="Entrar" />
                 </div>
                 <div class="text-center" style="padding:5px;">
 
                 </div>
             </div>
+            {% endautoescape %}
         </form>
 
     </div>

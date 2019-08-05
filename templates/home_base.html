@@ -56,7 +56,7 @@
 
 
                 <ul class="nav navbar-nav navbar-right user-nav">
-                    <li class="user-name"><span>Ismael fernando</span></li>
+                    <li class="user-name"><span>UAN</span></li>
                     <li class="dropdown avatar-dropdown">
                         <img src="{% static '/asset/img/user.png' %}" class="img-circle avatar" alt="user name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" />
                         <ul class="dropdown-menu user-dropdown">
@@ -103,7 +103,7 @@
                             <li><a href="{% url 'secretaria:registar-cadastro' %}"> Cadastrar estudante </a></li>
                             <li><a href="{% url 'secretaria:confirma-matricula' %}"> Confirmar Matricula</a></li>
                             <li><a href="{% url 'secretaria:registar-monografia' %}"> Inscrição da Dissertação</a></li>
-                            <li><a href=""> Consultar Dados</a></li>
+                            <li><a href="{% url 'secretaria:consultar-dados-pessoal' %}"> Consultar Dados</a></li>
                             <li><a href="{% url 'secretaria:emitir-delaracao' %}">Emitir Declarações</a></li>
                             <li><a href="{% url 'secretaria:lancamento-nota' %}">Lançamento de Nota</a></li>
                             <li class="ripple">
@@ -140,16 +140,30 @@
                             </li>
                             <li class="ripple">
                                 <a class="sub-tree-toggle nav-header">
-                                    <span class="fa fa-th-list"></span> Lista de Estudante
+                                    <span class="fa fa-th-list"></span> Listar Estudante
                                     <span class="fa-angle-right fa right-arrow text-right"></span>
                                 </a>
                                 <ul class="nav nav-list sub-tree">
-                                    <li><a href="{% url 'secretaria:listar-dados-estudante' %}">Inscritos em Mestrado</a></li>
-                                    <li><a href="">Inscritos em Pós-graduação</a></li>
+                                    <li><a href="{% url 'secretaria:listar-dados-nominal' %}">Criar Listagem Normal</a></li>
+                                    <li><a href="{% url 'secretaria:lista-estudante-pdf' %}">Gerar Listagem em PDF</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
+
+                    <li class="ripple">
+                        <a class="tree-toggle nav-header">
+                            <span class="fa-diamond fa"></span> Finanças
+                            <span class="fa-angle-right fa right-arrow text-right"></span>
+                        </a>
+                        <ul class="nav nav-list tree">
+                            <li><a href="{% url 'financas:registar-pagamento' %}">Registar Pagamento</a></li>
+                            <li><a href="{% url 'financas:listar-pagamento' %}">Listar Pagamento</a></li>
+                            <li><a href="#">Listar Divida</a></li>
+                            <li><a href="#">Consultar pagamento</a></li>
+                        </ul>
+                    </li>
+
                     <li class="ripple">
                         <a class="tree-toggle nav-header">
                             <span class="fa-area-chart fa"></span> Estatística
@@ -177,18 +191,6 @@
                                     <li><a href="">Por Semestre</a></li>
                                 </ul>
                             </li>
-                        </ul>
-                    </li>
-                    <li class="ripple">
-                        <a class="tree-toggle nav-header">
-                            <span class="fa-diamond fa"></span> Finanças
-                            <span class="fa-angle-right fa right-arrow text-right"></span>
-                        </a>
-                        <ul class="nav nav-list tree">
-                            <li><a href="{% url 'financas:registar-pagamento' %}">Registar Pagamento</a></li>
-                            <li><a href="{% url 'financas:listar-pagamento' %}">Listar Pagamento</a></li>
-                            <li><a href="#">Listar Divida</a></li>
-                            <li><a href="#">Consultar pagamento</a></li>
                         </ul>
                     </li>
                     <li class="ripple">
@@ -263,7 +265,8 @@
     <script src="{% static '/asset/js/plugins/chart.min.js' %}"></script>
     <script src="{% static '/asset/js/wizard.js' %}"></script>
     <script src="{% static '/asset/js/sweetalert2.js' %}"></script>
-    <script src="{% static '/asset/js/forms.js' %}"></script>
+    <script src="{% static '/asset/js/forms_secretaria.js' %}"></script>
+    <script src="{% static '/asset/js/forms_financas.js' %}"></script>
     <script src="{% static '/asset/js/nota.js' %}"></script>
 
 

@@ -50,7 +50,7 @@ def login(request):
                             return HttpResponseRedirect(reverse('utilizador:sair'))
                     else:
                         sweetify.info(request, 'Muda a senha da sua primeiro!.', persistent='OK', timer='3100')
-                        return HttpResponseRedirect(reverse('secretaria:troca-senha-padrao'))
+                        return HttpResponseRedirect(reverse('utilizador:troca-senha-padrao'))
                 else:
                     messages.warning(request, 'Dados errados!...')
         except User.DoesNotExist:
@@ -71,7 +71,7 @@ def sair(request):
         raise Http404("erro a terminar a sessão %s " % (e))
 
 
-
+@login_required
 def registar_utilizador(request):
     form = PessoaForm(request.POST or None)
     form2 = Utilizador_Form(request.POST or None)
@@ -79,10 +79,10 @@ def registar_utilizador(request):
         try:
             if form.is_valid() and form2.is_valid():
                 pessoa = form.save()
-            if pessoa.id is not None:
-                user = User.objects.create_user(username=request.POST['nome_utilizador'], first_name=pessoa.id, last_name=request.POST['categoria'],email=request.POST['email'],password=SENHA_PADRAO)
-                estado = Controla_SenhaPadrao.objects.create(user_id=user.id, estado=0, pessoa_id=pessoa)
-            sweetify.success(request, 'Conta criada com sucesso! <br> É obrigado depois o utilizador alterar a senha Padrão....', persistent='OK', timer='3100')
+                if pessoa.id is not None:
+                    user = User.objects.create_user(username=request.POST['nome_utilizador'], first_name=pessoa.id, last_name=request.POST['categoria'],email=request.POST['email'],password=SENHA_PADRAO)
+                    estado = Controla_SenhaPadrao.objects.create(user_id=user.id, estado=0, pessoa_id=pessoa.id)
+            sweetify.success(request, 'Conta criada com sucesso! <br> Depois o utilizador deve alterar a senha Padrão....', persistent='OK', timer='3100')
             return HttpResponseRedirect(reverse('secretaria:home'))
         except IntegrityError:
             sweetify.error(request, 'Já existe um utilizador com este nome de Utilizador!.', persistent='OK', timer='3100')

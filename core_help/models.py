@@ -64,10 +64,3 @@ class Especialidade(models.Model):
     def __str__ (self):
         return "%s" % (self.nome)
 
-
-class Pagamento_semestre(models.Model):
-    nome = models.CharField(max_length=160)
-    valor = models.CharField(max_length=12, blank=True, null=True, default="--")
-
-    def __str__ (self):
-        return "%s" % (self.nome)
