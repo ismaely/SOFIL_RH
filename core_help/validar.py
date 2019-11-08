@@ -4,6 +4,10 @@
 # @Link   : 
 # @Date   : 27/07/2019, 00:24:31
 import random, json, re, os, sweetify
+from core_help.models import Cursos
+from secretaria.models import (Estudante, Modulo_Disciplina, Matricula, Nota)
+
+
 
 def validar_cadeira_atraso(request):
     cadeira1 = request.POST.get('cadeira_atraso_1')
@@ -24,3 +28,17 @@ def validar_cadeira_atraso(request):
             return True
     except TypeError:
         return True
+
+
+
+def validar_nota_final_monografia(estudante, curso):
+    resp = Nota.objects.filter(estudante_id=estudante, matricula__curso_id=curso)
+    if resp.exists() and resp.count() == 15: #mestrado
+        return True
+    elif resp.exists() and resp.count() == 10 and curso in [1, 2]: #pos-grauação
+        return True
+    else:
+        return False
+    #print(resp.count())
+    #print(resp.exists())
+    

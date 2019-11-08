@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sessions.backends.cache',
     'sweetify',
     'secretaria',
     'estatistica',
@@ -94,6 +95,14 @@ DATABASES = {
     }
 }
 
+#acrecentado  para uso no algoritmo das senhas
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+]
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -121,13 +130,17 @@ LANGUAGE_CODE = 'pt-PT'
 LANGUAGES = (
     ('pt', u'Português'),
     ('en-us', u'English (US)'),
-    ('de', u'Deutsch'),
     ('en-gb', u'English (UK)'),
     ('es', u'Español'),
-    ('fr', u'Français'),
     
 )
-
+DATETIME_INPUT_FORMATS = ['%d/%m/%Y',
+                          '%d/%m/%Y %H:%M:%S',
+                          '%d-%m-%Y %H:%M:%S',
+                          '%d-%m-%Y'
+                          '%d/%m/%Y %H:%M:%S.%f']
+DATE_INPUT_FORMATS = ['%d/%m/%Y']
+DATE_FORMAT = '%d/%m/%Y'
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -136,12 +149,12 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
 #STATIC_ROOT = '{}/static'.format(BASE_DIR)
 MEDIA_ROOT = '{}/media/'.format(BASE_DIR)
 #MEDIA_ROOT = os.path.join(BASE_DIR, '/media')

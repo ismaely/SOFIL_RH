@@ -34,7 +34,16 @@ class PagamentoForm(ModelForm):
 
 
     def clean_valor(self):
-        valor = self.cleaned_data.get('valor')
-        if float(valor) < 0:
+        try:
+            valor = self.cleaned_data.get('valor')
+            if float(valor) < 0:
+                raise forms.ValidationError("O valor não é valida")
+            return valor
+        except Exception as e:
             raise forms.ValidationError("O valor não é valida")
-        return valor
+        
+
+
+class Listar_PagamentoForm(forms.Form):
+    data_entrada = forms.CharField(max_length=13, required=False, widget=forms.TextInput(attrs={'type': 'date', 'class': 'form-control'}))
+   

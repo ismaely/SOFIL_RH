@@ -37,7 +37,7 @@ class Pagamento(models.Model):
     tipo = models.ForeignKey(Categoria, on_delete=models.CASCADE, parent_link=True, blank=True, null=True, default="")
     parecela_mestrado = models.ForeignKey(Parcela_Mestrado, on_delete=models.CASCADE, parent_link=True, blank=True, null=True, default="")
     parecela_posgraduacao = models.ForeignKey(Parcela_Pos_Graduacao, on_delete=models.CASCADE, parent_link=True, blank=True, null=True, default="")
-    valor = models.CharField(max_length=13)
+    valor = models.FloatField(max_length=13)
     data_pagamento = models.DateField()
     data_sistema = models.DateField(auto_now_add=True)
 

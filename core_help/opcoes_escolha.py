@@ -1,6 +1,8 @@
 
 # ficheiro de opçoes de escolha de formulario e modelo
 
+
+
 GENERO = (
     ('M', 'Masculino'),
     ('F', 'Femenino'),
@@ -12,11 +14,25 @@ OPCAO_NOTA = (
     ('Recurso', 'Recurso'),
 )
 
+
+TIPO_DECLARACAO= (
+    ('1', 'Sem Notas'),
+    ('2', 'Com Notas'),
+)
+
+
 GRAU= (
     ('', '-----------'),
     ('1', 'Pós-Graduação'),
     ('2', 'Mestrado'),
 )
+
+
+TIPO_CONSULTAR_DADOS = (
+    ('', '-----------'),
+    ('Nota', 'Ver á Nota'),
+)
+
 
 
 CATEGORIA_UTILIZADOR = (
@@ -68,3 +84,4 @@ GRAU_PAGAMENTO = (
     ('Mestrado', 'Mestrado'),
 )
 
+MESES=('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro')

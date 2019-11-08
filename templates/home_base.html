@@ -30,8 +30,6 @@
     <link href="{% static '/asset/css/estilo.css' %}" rel="stylesheet">
     <!-- end: Css -->
 
-
-
     <link rel="shortcut icon" href="{% static '/asset/img/cppgl.jpg' %}">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -53,10 +51,8 @@
                 <a href="{% url 'secretaria:home' %}" class="navbar-brand">
                     <b>CPPPGL-UAN</b>
                 </a>
-
-
                 <ul class="nav navbar-nav navbar-right user-nav">
-                    <li class="user-name"><span>UAN</span></li>
+                    <li class="user-name"><span> {{user.username }} </span></li>
                     <li class="dropdown avatar-dropdown">
                         <img src="{% static '/asset/img/user.png' %}" class="img-circle avatar" alt="user name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" />
                         <ul class="dropdown-menu user-dropdown">
@@ -84,13 +80,9 @@
                         <div class="left-bg"></div>
                     </li>
                     <li class="">
-
                         <div class="col-md-12">
-
                             <img src="{% static '/asset/img/cppgl.jpg' %}" class="col-md-12 img-circle" />
-
                         </div>
-
                     </li>
 
                     <li class="active ripple">
@@ -104,8 +96,11 @@
                             <li><a href="{% url 'secretaria:confirma-matricula' %}"> Confirmar Matricula</a></li>
                             <li><a href="{% url 'secretaria:registar-monografia' %}"> Inscrição da Dissertação</a></li>
                             <li><a href="{% url 'secretaria:consultar-dados-pessoal' %}"> Consultar Dados</a></li>
+                            <li><a href="{% url 'secretaria:consultar-dados-cadastro' %}"> Alterar Dado de Cadastro</a></li>
                             <li><a href="{% url 'secretaria:emitir-delaracao' %}">Emitir Declarações</a></li>
                             <li><a href="{% url 'secretaria:lancamento-nota' %}">Lançamento de Nota</a></li>
+                            <li><a href="{% url 'secretaria:monografia' %}">Listar Monografias</a></li>
+                            <li><a href="{% url 'secretaria:nota_final' %}">Registar Nota da Monografia</a></li>
                             <li class="ripple">
                                 <a class="sub-tree-toggle nav-header">
                                     <span class="fa fa-th-large"></span> Cadastrar Modulo
@@ -114,17 +109,6 @@
                                 <ul class="nav nav-list sub-tree">
                                     <li><a href="{% url 'secretaria:registar-modulo-mestrado' %}">Mestrado</a></li>
                                     <li><a href="{% url 'secretaria:registar-modulo-posGraduacao' %}">Pós-graduação</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="ripple">
-                                <a class="sub-tree-toggle nav-header">
-                                    <span class="fa fa-th-list"></span> Listar Monografias
-                                    <span class="fa-angle-right fa right-arrow text-right"></span>
-                                </a>
-                                <ul class="nav nav-list sub-tree">
-                                    <li><a href="{% url 'secretaria:listar-monografia-mestrado' %}">Mestrado</a></li>
-                                    <li><a href="{% url 'secretaria:listar-monografia-posGraduacao' %}">Pós-graduação</a></li>
                                 </ul>
                             </li>
 
@@ -144,7 +128,7 @@
                                     <span class="fa-angle-right fa right-arrow text-right"></span>
                                 </a>
                                 <ul class="nav nav-list sub-tree">
-                                    <li><a href="{% url 'secretaria:listar-dados-nominal' %}">Criar Listagem Normal</a></li>
+                                    <li><a href="{% url 'secretaria:estudantes-matriculados' %}">Listar Estudantes Matriculado</a></li>
                                     <li><a href="{% url 'secretaria:lista-estudante-pdf' %}">Gerar Listagem em PDF</a></li>
                                 </ul>
                             </li>
@@ -159,8 +143,8 @@
                         <ul class="nav nav-list tree">
                             <li><a href="{% url 'financas:registar-pagamento' %}">Registar Pagamento</a></li>
                             <li><a href="{% url 'financas:listar-pagamento' %}">Listar Pagamento</a></li>
-                            <li><a href="#">Listar Divida</a></li>
-                            <li><a href="#">Consultar pagamento</a></li>
+                            <li><a href="{% url 'financas:listar-divida' %}">Listar Divida</a></li>
+                            <!--<li><a href="#">Consultar pagamento</a></li>-->
                         </ul>
                     </li>
 
@@ -176,9 +160,7 @@
                                     <span class="fa-angle-right fa right-arrow text-right"></span>
                                 </a>
                                 <ul class="nav nav-list sub-tree">
-                                    <li><a href="">Por Especialidade</a></li>
-                                    <li><a href="">Por Curso</a></li>
-                                    <li><a href="">Por Semestre</a></li>
+                                    <li><a href="{% url 'estatistica:menu-mestrado' %}">Menu-geral</a></li>
                                 </ul>
                             </li>
                             <li class="ripple">
@@ -187,8 +169,7 @@
                                     <span class="fa-angle-right fa right-arrow text-right"></span>
                                 </a>
                                 <ul class="nav nav-list sub-tree">
-                                    <li><a href="">Por Curso</a></li>
-                                    <li><a href="">Por Semestre</a></li>
+                                    <li><a href="">Menu-geral</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -207,9 +188,9 @@
                             <span class="fa-angle-right fa right-arrow text-right"></span> </a>
                         <ul class="nav nav-list tree">
                             <li><a href="{% url 'utilizador:registar-utilizador' %}"> Registar Utilizador </a></li>
-                            <li><a href="#"> Criar Conta de Utilizador</a></li>
-                            <li><a href="#">Listar Conta de Utlizador</a></li>
-                            <li><a href="#">Consultar Utilizador</a></li>
+                            <li><a href="{% url 'utilizador:conta_utilizador' %}"> Criar Conta de Utilizador</a></li>
+                            <li><a href="{% url 'utilizador:listar_utilizador' %}">Listar Contas de Utlizadores</a></li>
+                            <!--<li><a href="#">Consultar Utilizador</a></li>-->
                         </ul>
                     </li>
                 </ul>
@@ -258,9 +239,6 @@
     <script src="{% static '/asset/js/plugins/jquery.datatables.min.js' %}"></script>
     <script src="{% static '/asset/js/plugins/datatables.bootstrap.min.js' %}"></script>
     <script src="{% static '/asset/js/plugins/fullcalendar.min.js' %}"></script>
-    <script src="{% static '/asset/js/plugins/jquery.vmap.min.js' %}"></script>
-    <script src="{% static '/asset/js/plugins/maps/jquery.vmap.world.js' %}"></script>
-    <script src="{% static '/asset/js/plugins/jquery.vmap.sampledata.js' %}"></script>
     <script src="{% static '/asset/js/plugins/jquery.mask.min.js' %}"></script>
     <script src="{% static '/asset/js/plugins/chart.min.js' %}"></script>
     <script src="{% static '/asset/js/wizard.js' %}"></script>
@@ -268,6 +246,13 @@
     <script src="{% static '/asset/js/forms_secretaria.js' %}"></script>
     <script src="{% static '/asset/js/forms_financas.js' %}"></script>
     <script src="{% static '/asset/js/nota.js' %}"></script>
+
+    <!-- GRAFICOSS-->
+    <script src="{% static '/asset/highcharts/code/highcharts.js' %}"></script>
+    <script src="{% static '/asset/highcharts/code/highcharts-3d.js' %}"></script>
+    <script src="{% static '/asset/highcharts/code/modules/cylinder.js' %}"></script>
+    <script src="{% static '/asset/highcharts/code/modules/export-data.js' %}"></script>
+    <script src="{% static '/asset/highcharts/code/modules/exporting.js' %}"></script>
 
 
     <!-- custom -->

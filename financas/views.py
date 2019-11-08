@@ -1,18 +1,43 @@
 from core_help.includes import *
 from core_help.core import retorna_id
-from core_help.views_pdf import(logo_pdf, pdf_cabecario, rodape_imagem_Vertical)
+from core_help.views_pdf import(logo_pdf, pdf_cabecario, rodape_imagem_Vertical, rodape_factura)
 
 # Create your views here.
 
 
-
+@login_required
 def listar_pagamento(request):
+    form = Listar_PagamentoForm(request.POST or None)
     lista =[]
+    if request.method == 'POST':
+         if form.is_valid():
+            data = str(form.cleaned_data.get('data_entrada'))
+            # data[:-3] -> 2019-02
+            lista = Pagamento.objects.select_related('grau').filter(data_pagamento__startswith=data[:-3]).all()
+            context = {'lista': lista}
+            return render(request, 'financa/listar_pagamentos.html', context)
+    
+    context = {'form':form, 'escolha': 1}
+    return render(request, 'financa/menu_listar_pagamento.html', context)
+
+
+@login_required
+def listar_dividas(request):
+    form = Listar_PagamentoForm(request.POST or None)
+    lista =[]
+    if request.method == 'POST':
+        if form.is_valid():
+            data = str(form.cleaned_data.get('data_entrada'))
+            novaData = [data.split('-')]
+            lista = Pagamento.objects.select_related('grau').filter(data_matricula__startswith=novaData[0]).all()
+            context = {'lista': lista}
+            return render(request, 'financa/listar_pagamentos.html', context)
     #lista = Pagamento.objects.order_by('-id')
-    context = {'lista': lista}
-    return render(request, 'financa/listar_pagamentos.html', context)
+    context = {'form':form}
+    return render (request, 'financa/menu_listar_pagamento.html', context)
 
 
+@login_required
 # registar pagamento qualquer tipo
 def registar_Pagamento(request):
     form = PagamentoForm(request.POST or None)
@@ -29,62 +54,102 @@ def registar_Pagamento(request):
     return render (request, 'financa/registar_pagamento.html', context)
 
 
-
+@login_required
 # gerar factura de pagamento
 def imprmir_fatura_pagamento(request, id):
+    matricula = []
+    resp = Pagamento.objects.select_related('estudante').get(id=id)
+    matricula = Matricula.objects.filter(estudante_id=resp.estudante_id)
+    #print(matricula.query)
+    
     buffer = BytesIO()
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'inline; filename="Declaração_pessoal.pdf"'
+    response['Content-Disposition'] = 'inline; filename="Factura.pdf"'
     #p = canvas.Canvas(buffer)
-    
     doc = SimpleDocTemplate(buffer,pagesize=letter, rightMargin=55,leftMargin=55,topMargin=150,bottomMargin=75)
     
     styles = getSampleStyleSheet()
     styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY))
 
-    Story = []
+    Dados = []
+    TABELA = []
+    TABELA_TOTAL= []
+    DADOS =[]
+    DADOS_TOTAL = []
+    LEGENDA =""
+    LEGENDA=('DESCRIÇÃO',  'UNIDADE','VALOR')
 
-    #logo = os.path.join(settings.MEDIA_ROOT, str('logo/folha_simples.png'))
-    ##Story.append(uan_logo)
-    magName = "Pythonista"
-    issueNum = 12
-    subPrice = "99.00"
-    limitedDate = "03/05/2010"
-    freeGift = "tin foil hat"
-    full_name = "Marvin Jones"
-    address_parts = ["411 State St.", "Reno, NV 80158"]
+    TOTAL_LEGENDA = ('TOTAL', str(resp.valor))
 
-    for page in range(10):
-        # Create return address
-        ptext = '<font size=12>%s</font>' % full_name
-        Story.append(Paragraph(ptext, styles["Normal"]))       
-        for part in address_parts:
-            ptext = '<font size=12>%s</font>' % part.strip()
-            Story.append(Paragraph(ptext, styles["Normal"]))
+    if resp.grau.nome == 'Pós-Graduação':
+        if resp.tipo_id is not None:
+            valor = float(resp.valor ) - float(resp.tipo.valor)
+            #print('{2:16.8f}' format(valor))
+            DADOS.append([str(resp.tipo.tipo),' ########## ',str(resp.tipo.valor)])
+            DADOS.append([str(resp.parecela_posgraduacao.nome),' ########## ', str('%f'%(valor))])
+           
+        else:
+            DADOS.append([str(resp.parecela_posgraduacao.nome),' ########## ', str(resp.valor)])
+    else:
+        if resp.tipo_id is not None:
+            valor = float(resp.valor ) - float(resp.tipo.valor)
+            #print('{2:16.8f}' format(valor))
+            DADOS.append([str(resp.tipo.tipo),' ########## ',str(resp.tipo.valor)])
+            DADOS.append([str(resp.parecela_mestrado.nome),' ########## ', str('%f'%(valor))])
+           
+        else:
+            DADOS.append(['########',' ##########', str(resp.valor)])
 
-    Story.append(Spacer(1, 12))
-    ptext = '<font size=12>Dear %s:</font>' % full_name.split()[0].strip()
-    Story.append(Paragraph(ptext, styles["Normal"]))
-    Story.append(Spacer(1, 12))
 
-    ptext = """<font size=12>We would like to welcome you to our subscriber base 
-    for %s Magazine! You will receive %s issues at the excellent introductory 
-    price of $%s. Please respond by %s to start receiving your subscription 
-    and get the following free gift: %s.</font>""" 
-    ptext = ptext % (magName, issueNum, subPrice, limitedDate, freeGift)
-    Story.append(Paragraph(ptext, styles["Justify"]))
-    Story.append(Spacer(1, 12))
+    exmo = "<font size=12>Comprovativo de Pagamento</font>"
+    nome = "<font size=12>%s</font>" % (str(resp.estudante.pessoa.nome))
+    grau = '<font size=12>Grau: %s</font>' % (str(resp.grau.nome))
+    curso = '<font size=12>Curso: %s</font>' % ('')
 
-    ptext = '<font size=12>Thank you very much and we look forward to serving you.</font>'
-    Story.append(Paragraph(ptext, styles["Justify"]))
-    Story.append(Spacer(1, 12))
-    ptext = '<font size=12>Sincerely,</font>'
-    Story.append(Paragraph(ptext, styles["Normal"]))
+    if resp.estudante.numero_estudante is not None:
+        
+        aluno = '<font size=12>Aluno Nº: %s</font>' % (str(resp.estudante.numero_estudante))
+    else:
+        aluno = '<font size=12>BI Nº: %s</font>' % (str(resp.estudante.pessoa.bi))
+    #p.drawString(13.9*cm, 17.1* cm,'vida feita')
+
+    Dados.append(Spacer(1, 85))
+    Dados.append(Paragraph(exmo,styles["Normal"]))
+    Dados.append(Spacer(1, 13))
+    Dados.append(Paragraph(nome,styles["Normal"]))
+    Dados.append(Spacer(1, 5))
+    Dados.append(Paragraph(aluno,styles["Normal"]))
+    Dados.append(Spacer(1, 5))
+    Dados.append(Paragraph(grau, styles["Normal"]))
+    Dados.append(Spacer(1, 5))
+    Dados.append(Paragraph(curso, styles["Normal"]))
+    Dados.append(Spacer(1, 20))
     
-    Story.append(PageBreak())
+    TABELA = Table([LEGENDA] + DADOS,colWidths=[8.5 * cm, 3.2 * cm, 4.2 * cm])
+    TABELA.setStyle(TableStyle([
+        ('ALIGN',(0,0),(0,0),'CENTER'),
+        ('GRID', (0, 0), (6, -1), 1,  colors.silver),
+        ('LINEBELOW', (0, 0), (-1, 0), 1.2, colors.black),
+        ('BACKGROUND', (0, 0), (-1, 0), colors.lightblue)
+        ]
+     ))
+    TABELA_TOTAL = Table([TOTAL_LEGENDA] + DADOS_TOTAL,colWidths=[8.2 * cm,7.7 * cm,  7.2 * cm])
+    TABELA_TOTAL.setStyle(TableStyle([
+        ('ALIGN',(0,0),(0,0),'CENTER'),
+        ('GRID', (0, 0), (4, -1), 1,  colors.silver),
+        ('LINEBELOW', (0, 0), (-1, 0), 1.2, colors.black),
+        ('BACKGROUND', (0, 0), (-1, 0), colors.lightblue),
+        ('SPAN',(0,2),(1,2)),
+        ]
+     ))
+
+    Dados.append(TABELA)
+    Dados.append(Spacer(1, 1))
+    Dados.append(TABELA_TOTAL)
+    Dados.append(PageBreak())
     #p.showPage()
     
-    doc.build(Story, onFirstPage=rodape_imagem_Vertical, onLaterPages=rodape_imagem_Vertical)
+    doc.build(Dados, onFirstPage=rodape_factura)
     response.write(buffer.getvalue())
     buffer.close()
     return response

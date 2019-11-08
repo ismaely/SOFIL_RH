@@ -20,8 +20,8 @@
                             <thead>
                                 <tr>
                                     <th>Nº</th>
-                                    <th>Especialidade</th>
                                     <th>Name do Modulo</th>
+                                    <th>Curso</th>
                                     <th>Sigla / Código</th>
                                     <th>Ano</th>
                                     <th>Semestre</th>
@@ -33,12 +33,17 @@
                                 {% for dados in lista %}
                                 <tr>
                                     <td class=" ">{{ dados.id }}</td>
-                                    <td class=" ">{{ dados.especialidade.nome|upper }}</td>
                                     <td class=" ">{{ dados.nome|upper }}</td>
+                                    <td class=" ">{{ dados.curso.nome }}</td>
                                     <td class=" ">{{ dados.sigla_codigo|upper }}</td>
                                     <td class=" ">{{ dados.ano.nome }}</td>
                                     <td class=" ">{{ dados.semestre.nome }}</td>
-                                    <td class=" ">{{ dados.estado|upper }}</td>
+
+                                    {% if dados.estado == 'Ativado' %}
+                                    <td class="btn btn-success"> {{ dados.estado|upper }}</td>
+                                    {% else %}
+                                    <td class="btn btn-danger"> {{ dados.estado|upper }}</td>
+                                    {% endif %}
                                     <td>
                                         <div class="btn-group" role="group">
                                             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -46,9 +51,12 @@
                                               <span class="fa fa-angle-down"></span>
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li><a href="#">Editar o Modulo</a></li>
-                                                <li><a href="#">Ativar</a></li>
-                                                <li><a href="#">Cancelar</a></li>
+                                                <li><a href="{% url 'secretaria:editar-modulo-mestrado' dados.id %}">Editar o Modulo</a></li>
+                                                {% if dados.estado == 'Ativado' %}
+                                                <li><a href="{% url 'secretaria:cancelar_modulo_mestrado' dados.id %}">Cancelar</a></li>
+                                                {% else %}
+                                                <li><a href="{% url 'secretaria:ativar_modulo_mestrado' dados.id %}">Ativar</a></li>
+                                                {% endif %}
                                             </ul>
                                         </div>
                                     </td>

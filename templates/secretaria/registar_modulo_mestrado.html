@@ -14,62 +14,72 @@
             <div class="col-md-12">
                 <div class="panel form-element-padding">
                     <div class="panel-heading">
+                        {% if modulo %}
+
+                        <h4>Atualizar Dados do Modulo de Mestrado</h4>
+
+                        {% else %}
                         <h4>Registar Novo Modulo de Mestrado</h4>
+                        {% endif %}
                     </div>
                     <div class="panel-body" style="padding-bottom:30px;">
                         <div class="col-md-12">
-                            <form role="form" action="{% url 'secretaria:registar-modulo-mestrado' %}" method="POST">
-                                {% csrf_token %} {% autoescape on %}
-                                <div class="col-md-6">
-                                    <!-- inicio do primeiro bloco-->
-                                    <div class="form-group " style="margin: -10px 0px !important;">
-                                        <label class="col-sm-10 control-label">Nome do Modulo</label> {{ form.nome }} {{ form.nome.errors }}
 
+                            {% if modulo %}
+                            <form role="form" action="{% url 'secretaria:editar-modulo-mestrado' modulo.id %}" method="POST">
+                                {% else %}
+                                <form role="form" action="{% url 'secretaria:registar-modulo-mestrado' %}" method="POST">
+                                    {% endif %} {% csrf_token %} {% autoescape on %}
+                                    <div class="col-md-6">
+                                        <!-- inicio do primeiro bloco-->
+                                        <div class="form-group " style="margin: -10px 0px !important;">
+                                            <label class="col-sm-10 control-label">Nome do Modulo</label> {{ form.nome }} {{ form.nome.errors }}
+
+                                        </div>
+
+                                        <div class="form-group " style="margin: -10px 0px !important;">
+                                            <label class="col-sm-10 control-label ">Curso</label> {{ form.curso }} {{ form.curso.errors }}
+                                        </div>
+                                        <div class="form-group " style="margin: -10px 0px !important;">
+                                            <label class="col-sm-10 control-label">Ano</label> {{ form.ano }} {{ form.ano.errors }}
+
+                                        </div>
+
+                                        <div class="form-group " style="margin: -10px 0px !important;">
+                                            <label class="col-sm-10 control-label ">Semestre</label> {{ form.semestre }} {{ form.semestre.errors }}
+
+                                        </div>
                                     </div>
 
-                                    <div class="form-group " style="margin: -10px 0px !important;">
-                                        <label class="col-sm-10 control-label ">Curso</label> {{ form.curso }} {{ form.curso.errors }}
-                                    </div>
-                                    <div class="form-group " style="margin: -10px 0px !important;">
-                                        <label class="col-sm-10 control-label">Ano</label> {{ form.ano }} {{ form.ano.errors }}
+                                    <div class="col-md-6">
+                                        <div class="form-group " style="margin: -10px 0px !important;">
+                                            <label class="col-sm-10 control-label ">Sigla/Código da Disciplina</label> {{ form.sigla_codigo }} {{ form.sigla_codigo.errors }}
 
-                                    </div>
+                                        </div>
 
-                                    <div class="form-group " style="margin: -10px 0px !important;">
-                                        <label class="col-sm-10 control-label ">Semestre</label> {{ form.semestre }} {{ form.semestre.errors }}
-
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group " style="margin: -10px 0px !important;">
-                                        <label class="col-sm-10 control-label ">Sigla/Código da Disciplina</label> {{ form.sigla_codigo }} {{ form.sigla_codigo.errors }}
-
-                                    </div>
-
-                                    <div class="form-group " style="margin: -10px 0px !important;">
-                                        <label class="col-sm-10 control-label">Especialidade</label> {{ form.especialidade }} {{ form.especialidade.errors }}
+                                        <div class="form-group " style="margin: -10px 0px !important;">
+                                            <label class="col-sm-10 control-label">Especialidade</label> {{ form.especialidade }} {{ form.especialidade.errors }}
 
 
-                                    </div>
+                                        </div>
 
 
-                                    <div class="form-group " style="margin: -10px 0px !important;">
+                                        <div class="form-group " style="margin: -10px 0px !important;">
 
-                                        <label class="col-sm-10 control-label ">Crédito</label> {{ form.credito }} {{ form.credito.errors }}
-                                    </div>
-                                    <div class="form-group " style="margin: -10px 0px !important;">
-                                        <label class="col-sm-10 control-label ">Carga Horaria</label> {{ form.horas }} {{ form.horas.errors }}
+                                            <label class="col-sm-10 control-label ">Crédito</label> {{ form.credito }} {{ form.credito.errors }}
+                                        </div>
+                                        <div class="form-group " style="margin: -10px 0px !important;">
+                                            <label class="col-sm-10 control-label ">Carga Horaria</label> {{ form.horas }} {{ form.horas.errors }}
 
+                                        </div>
+
+                                        <ul class="form-group list-inline ">
+                                            <li><button type="submit" class="col-md-12 btn btn-primary next-step">Salvar</button></li>
+                                        </ul>
                                     </div>
 
-                                    <ul class="form-group list-inline ">
-                                        <li><button type="submit" class="col-md-12 btn btn-primary next-step">Salvar</button></li>
-                                    </ul>
-                                </div>
-
-                                {% endautoescape %}
-                            </form>
+                                    {% endautoescape %}
+                                </form>
 
                         </div>
                     </div>

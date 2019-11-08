@@ -17,7 +17,7 @@ $(document).ready(function () {
     if ($('.ajax_curso_especialidade').val() > 0) {
         //var valor_curso = $('.ajax_curso').val();
         $.ajax({
-            url: '/recebe_idCurso_retornaEspecialidade_ajax/',
+            url: '/secretaria/recebe_idCurso_retornaEspecialidade_ajax/',
             type: 'POST',
             data: JSON.stringify({ 'id': $('.ajax_curso_especialidade').val() }),
             dataType: 'json',
@@ -134,7 +134,7 @@ $(document).ready(function () {
         var nova_escolhas = document.getElementById("id_semestre");
         if($('.ajax_ano').val() > 0){
         $.ajax({
-            url: '/recebe_ano_retornaSemestre_ajax/',
+            url: '/secretaria/recebe_ano_retornaSemestre_ajax/',
             type: 'POST',
             data: JSON.stringify({ 'id': $('.ajax_ano').val() }),
             dataType: 'json',
@@ -168,12 +168,11 @@ $(document).ready(function () {
     });
 
 
-
     // matricula ---função que vai pegar todas as especialidade e disciplinas em atraso de cada curso,  atraves do id do curso
     $('.ajax_curso_especialidade').click(function () {
         //var valor_curso = $('.ajax_curso').val();
         $.ajax({
-            url: '/recebe_idCurso_retornaEspecialidadeModuloAno_ajax/',
+            url: '/secretaria/recebe_idCurso_retornaEspecialidade_ajax/',
             type: 'POST',
             data: JSON.stringify({ 
                 'id': $('.ajax_curso_especialidade').val()
@@ -326,9 +325,9 @@ $(document).ready(function () {
         //var valor_curso = $('.ajax_curso').val();
         if ($('.grau_ajax').val()){
         $.ajax({
-            url: '/recebe_grau_academico_ajax/',
+            url: '/secretaria/recebe_grau_academico_ajax/',
             type: 'POST',
-            data: JSON.stringify({ 'id': $('.grau_ajax').val() }),
+            data: JSON.stringify({'id': $('.grau_ajax').val() }),
             dataType: 'json',
             headers: {
                 'X-CSRFToken': getCookie('csrftoken'),
@@ -374,6 +373,44 @@ $(document).ready(function () {
             $("#id_semestre").removeAttr("disabled", "disabled");
         }
      }
+
+    });
+
+
+/** função que vai buscar o municipoio em função da naturalidade */
+    $('.ajax_naturalidade').click(function () {
+        $.ajax({
+            url: '/secretaria/recebe_naturalidade_retorna_municipio_ajax/',
+            type: 'POST',
+            data: JSON.stringify({'id': $('.ajax_naturalidade').val() }),
+            dataType: 'json',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            success: function (data) {
+                var municipio= document.getElementById("id_municipio");
+
+                var cont = 1;
+                while (municipio.options.length) {
+                    municipio.remove(0);
+                }
+                for (let k = 0; k < data.muncipios.length; k++) {
+                    var resp = data.muncipios[k];
+                    var novos = ""
+                   
+                    novos = new Option(resp[1], resp[0]);
+                    municipio.options.add(novos)
+                    cont = cont + 1;
+                }
+
+            },
+            error: function () {
+                console.log('erro na busca do municipio')
+            }
+        });
+       
 
     });
 

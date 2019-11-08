@@ -4,8 +4,60 @@
 # @Date   : 29/07/2019, 17:23:33
 from core_help.includes import *
 
+import pyqrcode
 
 
+def codigo_qr():
+    qr = qrcode.QRCode(
+    version=1,
+    error_correction=qrcode.constants.ERROR_CORRECT_H,
+    box_size=10,
+    border=2
+    )
+    data = 'cpppgl-uan'
+    qr.add_data(data)
+    qr.make()
+    img = qr.make_image(fill_color='black', back_color='white')
+    return img.save('static/codigo_qr/t5.png')
+
+
+def rodape_factura(canvas, doc):
+    # logo da fau
+    logo = os.path.join(settings.MEDIA_ROOT, str('logo/folha_simples.png'))
+    canvas.drawImage(logo, 0, 15, width=580, height=764, mask=None)
+    #linha
+    canvas.line(60,640,570,640)
+    canvas.setFont('Times-Roman',12)
+    #caixa da factura
+    caixa1 = os.path.join(settings.MEDIA_ROOT, str('logo/caixa3.png'))
+    canvas.drawImage(caixa1, 299.5, 518, width=280, height=119, mask=None)
+    canvas.drawString(330,642.2,'FACTURA Nº: 2019/000000001')
+    canvas.drawString(11.2*cm, 21.5* cm,'Universidade Agostinho Neto')
+    canvas.drawString(11.2*cm, 21* cm,'Entidade: CPPPGL')
+    canvas.drawString(11.2*cm, 20.5* cm,'Av. Ho Chi Min, Faculdade de Direito')
+    canvas.drawString(11.2*cm, 20* cm,'2º Piso - Sala: 4')
+    canvas.drawString(11.2*cm, 19.5* cm,'E-mail: cpppgl.org@gmail.com')
+    canvas.drawString(11.2*cm, 19* cm,'Telefone: 222-153555')
+    canvas.drawString(13.9*cm, 18.3* cm,'Luanda - Angola')
+    canvas.drawString(14.3*cm, 17.8* cm,'Data')
+
+    #ASSINATURA
+    canvas.line(350,130,570,130)
+    canvas.drawString(12.5*cm, 4.2* cm,'O Funcionario:')
+
+
+    #INFORMAÇÃO EXTRA
+    canvas.drawString(2*cm, 5.8* cm,'Nº de Contribuite: 7416013488')
+    canvas.drawString(2*cm, 5.3* cm,'Banco Fomento Angola (BFA)')
+    canvas.drawString(2*cm, 4.8* cm,'Nº Conta: 140490956.30.001')
+    canvas.drawString(2*cm, 4.3* cm,'IBAN-A0 06000600004049095630110')
+
+    #codigo qr
+    canvas.drawImage(codigo_qr(), 495, 26, width=73, height=70, mask=None)
+
+    page_num = canvas.getPageNumber()
+    #text = "Pagina #%s" % page_num
+ 
 
 def logo_pdf(p):
     logo = os.path.join(settings.MEDIA_ROOT, str('logo/folha_simples.png'))
@@ -44,39 +96,56 @@ def pdf_horizontal_cabeca(response):
     return (buffer, p, style, estilosB)
  
 
-
+#RODAPE DA DECLARAÇÃO
 def rodape_imagem_Vertical(canvas, doc):
-    
     logo = os.path.join(settings.MEDIA_ROOT, str('logo/folha_simples.png'))
-    canvas.drawImage(logo, 0, 15, width=580, height=764, mask=None)
+    canvas.drawImage(logo, 0, 15, width=580, height=769, mask=None)
+    styles = getSampleStyleSheet()
+    
+    canvas.drawString(269,39*mm,'O Director')
+    canvas.line(188,32*mm,406,32*mm)
+    canvas.drawString(189,28*mm,'Prof. Carlos Manuel dos Santos Teixeira')
+    canvas.drawString(245,23*mm,'(Professor Associado)')
+    
+    page_num = canvas.getPageNumber()
+    
+
+# RODAPE QUE PRECHE A FICHA DE MATRICULA EM PDF
+def rodape_ficha_matricula(canvas, doc):
+    logo = os.path.join(settings.MEDIA_ROOT, str('logo/ficha_inscricao.png'))
+    canvas.drawImage(logo, 0, 15, width=580, height=769, mask=None)
+    
+    
+    
+    canvas.drawString(269,39*mm,'Operador')
+    canvas.line(188,32*mm,406,32*mm)
+    #canvas.drawString(189,28*mm,'Prof. Carlos Manuel dos Santos Teixeira')
+    #canvas.drawString(245,23*mm,'(Professor Associado)')
+    canvas.drawImage(codigo_qr(), 495, 26, width=73, height=70, mask=None)
     page_num = canvas.getPageNumber()
     #text = "Pagina #%s" % page_num
     #canvas.drawRightString(200*mm, 20*mm, text)
 
 
-
 def rodape_numero_pagina_imagem_horizontal(canvas, doc):
     canvas.setPageSize((10.9*inch, 7.7*inch))
     logo = os.path.join(settings.MEDIA_ROOT, str('logo/folha_simples.png'))
-    canvas.drawImage(logo, 0, 15, width=580, height=534, mask=None)
+    canvas.drawImage(logo, 0, 15, width=555, height=534, mask=None)
     page_num = canvas.getPageNumber()
     text = "Pagina #%s" % page_num
     canvas.drawRightString(256*mm, 20*mm, text)
 
 
 
-
 def gerar_pdf_simples(value):
-    
     buffer = BytesIO()
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'inline; filename="Lista_Nominal.pdf"'
     #p = canvas.Canvas(buffer)
-    doc = SimpleDocTemplate(buffer,pagesize=letter, rightMargin=-80,leftMargin=20,topMargin=340,bottomMargin=75)
+    doc = SimpleDocTemplate(buffer,pagesize=letter, rightMargin=-120,leftMargin=60,topMargin=340,bottomMargin=75)
     #print(doc.height)
     styles = getSampleStyleSheet()
     styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY))
-
     LISTA = []
     TABELA = []
     DADOS =[]
@@ -88,6 +157,7 @@ def gerar_pdf_simples(value):
     LISTA.append(ptext)
     LISTA.append(Spacer(1, 12))
 
+    #MESTRADO LISTA PDF
     if value['grau'] == 2:
         if len(value['esp']) > 0:
             for cont, k in enumerate(value['lista'], 1):
@@ -104,17 +174,21 @@ def gerar_pdf_simples(value):
             ))
         else:
             for cont, k in enumerate(value['lista'], 1):
-                DADOS.append([cont,  str(k.estudante.pessoa.nome), str(k.estudante.pessoa.genero).upper(),  str(k.estudante.pessoa.bi),  str(k.curso.nome), str(k.ano.nome).upper(), str(k.semestre.nome)])
+                DADOS.append([cont, str(k.estudante.pessoa.nome), str(k.estudante.pessoa.genero).upper(),  str(k.estudante.pessoa.bi),  str(k.curso.nome), str(k.ano.nome).upper()])
             
-            LEGENDA=('#', 'NOME', 'GENERO', 'IDENTIFICAÇÃO', 'CURSO', 'ANO', 'SEMESTRE')
+            LEGENDA=('#', 'NOME', 'GENERO', 'IDENTIFICAÇÃO', 'CURSO', 'ANO')
             TABELA = Table([LEGENDA] + DADOS)
             TABELA.setStyle(TableStyle([
                     ('ALIGN',(0,0),(0,0),'CENTER'),
                     ('GRID', (0, 0), (6, -1), 1.3,  colors.black),
                     ('LINEBELOW', (0, 0), (-1, 0), 1.3, colors.black),
-                    ('BACKGROUND', (0, 0), (-1, 0), colors.lightblue)
+                    ('BACKGROUND', (0, 0), (-1, 0), colors.lightblue),
+                    ('ALIGN',(0,0),(-1,-1),'CENTER'),
+                    ('VALIGN',(0,1),(2,1),'MIDDLE')
                 ]
             ))
+
+    # POS-GRADUAÇÃO LISTA PDF
     else:
         for cont, k in enumerate(value['lista'], 1):
                 DADOS.append([cont,  str(k.estudante.pessoa.nome), str(k.estudante.pessoa.genero).upper(),  str(k.estudante.pessoa.bi),  str(k.curso.nome), '__________________________'])
@@ -131,46 +205,8 @@ def gerar_pdf_simples(value):
 
     LISTA.append(TABELA)
     LISTA.append(Spacer(1, 12))
-
-    
-    """magName = "Pythonista"
-    issueNum = 12
-    subPrice = "99.00"
-    limitedDate = "03/05/2010"
-    freeGift = "tin foil hat"
-    full_name = "Marvin Jones"
-    address_parts = ["411 State St.", "Reno, NV 80158"]
-
-    for page in range(10):
-        # Create return address
-        ptext = '<font size=12>%s</font>' % full_name
-        LISTA.append(Paragraph(ptext, styles["Normal"]))       
-        for part in address_parts:
-            ptext = '<font size=12>%s</font>' % part.strip()
-            LISTA.append(Paragraph(ptext, styles["Normal"]))
-
-    LISTA.append(Spacer(1, 12))
-    ptext = '<font size=12>Dear %s:</font>' % full_name.split()[0].strip()
-    LISTA.append(Paragraph(ptext, styles["Normal"]))
-    LISTA.append(Spacer(1, 12))
-
-    ptext = '<font size=12>We would like to welcome you to our subscriber base 
-    for %s Magazine! You will receive %s issues at the excellent introductory 
-    price of $%s. Please respond by %s to start receiving your subscription 
-    and get the following free gift: %s.</font>'
-    ptext = ptext % (magName, issueNum, subPrice, limitedDate, freeGift)
-    LISTA.append(Paragraph(ptext, styles["Justify"]))
-    LISTA.append(Spacer(1, 12))
-
-    ptext = '<font size=12>Thank you very much and we look forward to serving you.</font>'
-    LISTA.append(Paragraph(ptext, styles["Justify"]))
-    LISTA.append(Spacer(1, 12))
-    ptext = '<font size=12>Sincerely,</font>'
-    LISTA.append(Paragraph(ptext, styles["Normal"]))"""
-    
     LISTA.append(PageBreak())
     #p.showPage()
-    
     
     doc.build(LISTA, onFirstPage=rodape_numero_pagina_imagem_horizontal, onLaterPages=rodape_numero_pagina_imagem_horizontal)
     response.write(buffer.getvalue())

@@ -1,12 +1,20 @@
 from django import forms
 from django.forms import ModelForm
-from core_help.opcoes_escolha import GRAU_ACDAEMICO_DOCENTE, CATEGORIA_UTILIZADOR, GRAU
-from secretaria.models import Pessoa, Estudante,  Profissao, Modulo_Disciplina, Monografia,Matricula, Nota, Cursos, Especialidade, Ano
-from core_help.core import retorna_id
+from core_help.opcoes_escolha import GRAU_ACDAEMICO_DOCENTE, CATEGORIA_UTILIZADOR, GRAU, TIPO_DECLARACAO, TIPO_CONSULTAR_DADOS
+from secretaria.models import Pessoa, Estudante,  Profissao, Modulo_Disciplina, Monografia,Matricula, Nota, Cursos, Especialidade, Ano, Nota_final_Monografia
+from core_help.core import retorna_id, retorna_id_estudante
+#from SOFIL_RH.settings import DATE_FORMAT, DATE_INPUT_FORMATS
+from SOFIL_RH import settings
+
+#from django.conf import settings
 # forms.py
 # @Author : Gunza Ismael (7ilipe@gmail.com)Mon
 # @Link   : 
 # @Date   : 17/06/2019, 23:41:21
+
+
+LISTA_CURSOS = [(k.id, k.nome) for k in Cursos.objects.select_related('grau_academico').all()]
+LISTA_ESPECIALIDADE = [(k.id, k.nome) for k in Especialidade.objects.select_related('curso').all()]
 
 class PessoaForm(ModelForm):
     nome = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control maiuscula'}))
@@ -17,13 +25,13 @@ class PessoaForm(ModelForm):
     residencia = forms.CharField(max_length=50, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
     telefone = forms.CharField(max_length=18, required=False, widget=forms.TextInput(attrs={'class': 'form-control mask-phone'}))
     email = forms.EmailField(max_length=80, required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'id':'validate_email'}))
-    
+    municipio = forms.CharField(max_length=60, widget=forms.Select(choices="", attrs={'class': 'form-control ajax_municipio'}))
     class Meta:
         model = Pessoa
         fields = ['nome', 'nome_pai', 'nome_mae','genero','data_nascimento', 'bi', 'estado_civil', 'residencia', 'naturalidade', 'telefone', 'email'] 
         
         widgets = {
-            'naturalidade': forms.Select(attrs={'class': 'form-control'}),
+            'naturalidade': forms.Select(attrs={'class': 'form-control ajax_naturalidade'}),
             'genero': forms.Select( attrs={'class': 'form-control'}),
             'estado_civil': forms.Select( attrs={'class': 'form-control'}),
         }
@@ -66,14 +74,14 @@ LISTA_MESTRADO = [(k.id, k.nome) for k in Cursos.objects.select_related('grau_ac
 class Modulo_MestradoForm(ModelForm):
     nome = forms.CharField(max_length=120, widget=forms.TextInput(attrs={'class': 'form-control'}))
     sigla_codigo = forms.CharField(max_length=100,required=False,  widget=forms.TextInput(attrs={'class': 'form-control maiuscula'}))
-    horas = forms.CharField(max_length=8, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    horas = forms.CharField(max_length=20, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
     credito = forms.CharField(max_length=20,required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
     estado = forms.CharField(max_length=120, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
     curso = forms.CharField(widget=forms.Select(choices = LISTA_MESTRADO , attrs={'class': 'form-control'}))
-    tipo = forms.CharField(max_length=20, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    #tipo = forms.CharField(max_length=20, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
     class Meta:
         model = Modulo_Disciplina
-        fields = ['nome', 'sigla_codigo', 'horas', 'credito', 'ano', 'semestre', 'especialidade', 'estado', 'tipo']
+        fields = ['nome', 'sigla_codigo', 'credito', 'ano', 'semestre', 'especialidade', 'estado', 'horas']
         widgets = {
             'ano': forms.Select(attrs={'class': 'form-control ajax_ano'}),
             'semestre': forms.Select(attrs={'class': 'form-control ajax_semestre'}),
@@ -88,11 +96,13 @@ class Modulo_PosGraduacaoForm(ModelForm):
     sigla_codigo = forms.CharField(max_length=100,required=False,  widget=forms.TextInput(attrs={'class': 'form-control maiuscula'}))
     estado = forms.CharField(max_length=120, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
     curso = forms.CharField(required=False, widget=forms.Select(choices=LISTA_POSGRADUACAO , attrs={'class': 'form-control'}))
-    tipo = forms.CharField(max_length=20, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    #tipo = forms.CharField(max_length=20, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
     class Meta:
         model = Modulo_Disciplina
-        fields = ['nome', 'sigla_codigo', 'estado', 'tipo']
-        
+        fields = ['nome', 'sigla_codigo', 'estado','semestre']
+        widgets = {
+            'semestre': forms.Select(attrs={'class': 'form-control'}),
+        }
 
 
 class MonografiaForm(ModelForm):
@@ -101,7 +111,7 @@ class MonografiaForm(ModelForm):
     docente = forms.CharField(max_length=50, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
     data_entrada = forms.CharField(max_length=13,  widget=forms.TextInput(attrs={'type': 'date', 'class': 'form-control'}))
     estado = forms.CharField(max_length=8, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    arquivo = forms.CharField(required=False, widget=forms.FileInput(attrs={'class': 'form-control'}))
+    arquivo = forms.FileField()
     class Meta:
         model = Monografia
         fields = ['tema', 'docente', 'data_entrada', 'estado', 'arquivo', 'curso', 'especialidade']
@@ -162,15 +172,20 @@ class Gerar_numeroEstudante_Form(forms.Form):
             raise forms.ValidationError("Nã existe estudante com esse número do B.I")
 
 
-
+# formualrio para emitir declaração e para fazer consulta dos dados normal
 class Emitir_declaracao_ConsultarDados_Form(forms.Form):
     bi = forms.CharField(max_length=14, widget=forms.TextInput(attrs={'class': 'form-control maiuscula'}))
+    motivo_declaracao = forms.CharField(max_length=90, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    tipo = forms.CharField(required=False, widget=forms.Select(choices = TIPO_DECLARACAO , attrs={'class': 'form-control'}))
+    tipo_consulta = forms.CharField(required=False, widget=forms.Select(choices = TIPO_CONSULTAR_DADOS , attrs={'class': 'form-control'}))
+    grau = forms.CharField(widget=forms.Select(choices = GRAU , attrs={'class': 'form-control grau_ajax'}))
+    curso = forms.CharField(widget=forms.Select(choices='', attrs={'class': 'form-control grau_curso_ajax'}))
     def clean_bi(self):
         bi = self.cleaned_data.get('bi')
         try:
-            bix = retorna_id(bi)
+            bix = retorna_id_estudante(bi)
             if int(bix) > 0:
-                return bi
+                return bix
             else:
                 raise forms.ValidationError("O Número não é valido")
         except Pessoa.DoesNotExist:
@@ -178,16 +193,51 @@ class Emitir_declaracao_ConsultarDados_Form(forms.Form):
 
 
 
-LISTA_CURSOS = [(k.id, k.nome) for k in Cursos.objects.select_related('grau_academico').all()]
-LISTA_ESPECIALIDADE = [(k.id, k.nome) for k in Especialidade.objects.select_related('curso').all()]
+
+
 class Nota_lancamento_Form(ModelForm):
     estudante = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'class': 'form-control maiuscula'}))
     modulo = forms.CharField(widget=forms.Select(choices='', attrs={'class': 'form-control ajax_modulo'}))
     data_entrada = forms.CharField(max_length=13,  widget=forms.TextInput(attrs={'type': 'date', 'class': 'form-control'}))
     curso = forms.CharField( widget=forms.Select(choices=LISTA_CURSOS, attrs={'class': 'form-control ajax_curso'}))
+    #ano = forms.CharField(required=False,widget=forms.Select(choices='', attrs={'class': 'form-control ajax_ano'}))
+    #semestre = forms.CharField(required=False, widget=forms.Select(choices='', attrs={'class': 'form-control ajax_semestre'}))
     class Meta:
         model = Nota
-        fields = ['nota', 'data_entrada']
+        fields = ['nota', 'data_entrada', 'ano', 'semestre']
+        widgets = {
+            'nota': forms.TextInput(attrs={'class': 'form-control'}),
+            'ano': forms.Select(attrs={'class': 'form-control ajax_ano'}),
+            'semestre': forms.Select(attrs={'class': 'form-control ajax_semestre'}),
+        }
+
+    def clean_estudante(self):
+        bi = self.cleaned_data.get('estudante')
+        try:
+            bix = retorna_id(bi)
+            if int(bix) > 0:
+                return bix
+            else:
+                raise forms.ValidationError("O Número não é valido")
+        except Pessoa.DoesNotExist:
+            raise forms.ValidationError("O Número não é valido Não existe")
+
+    def clean_nota(self):
+        nota = self.cleaned_data.get('nota')
+        if int(nota) < 0  or int(nota) > 20:
+            raise forms.ValidationError("A Nota não é valida")
+        return nota
+
+
+
+
+class Nota_final_Monografia_Form(ModelForm):
+    estudante = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'class': 'form-control maiuscula'}))
+    data_defesa = forms.DateField(widget=forms.TextInput(attrs={'type': 'date', 'class': 'form-control'}))
+    curso = forms.CharField( widget=forms.Select(choices=LISTA_CURSOS, attrs={'class': 'form-control'}))
+    class Meta:
+        model = Nota_final_Monografia
+        fields = ['nota', 'data_defesa']
         widgets = {
             'nota': forms.TextInput(attrs={'class': 'form-control'}),
         }
@@ -211,6 +261,8 @@ class Nota_lancamento_Form(ModelForm):
 
 
 
+
+
 ANO_LISTA =[]
 ANO_LISTA.append(['','-------'])
 for ano in Ano.objects.all():
@@ -222,3 +274,8 @@ class Menu_listagem_Form(forms.Form):
     ano = forms.CharField(required=False,widget=forms.Select(choices=ANO_LISTA, attrs={'class': 'form-control ajax_ano'}))
     semestre = forms.CharField(required=False, widget=forms.Select(choices='', attrs={'class': 'form-control ajax_semestre'}))
     data_entrada = forms.CharField(required=False, max_length=13,  widget=forms.TextInput(attrs={'type': 'date', 'class': 'form-control'}))
+    
+    
+class Consultar_alterar_pessoaForm(forms.Form):
+    estudante = forms.CharField(max_length=14, widget=forms.TextInput(attrs={'class': 'form-control maiuscula'}))
+

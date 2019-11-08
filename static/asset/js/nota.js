@@ -12,7 +12,7 @@ $(function () {
         var modulo = document.getElementById("id_modulo");
         if ($('.ajax_curso').val() > 0 ){
         $.ajax({
-            url:  '/recebe_id_curso_ajax/',
+            url:  '/secretaria/recebe_id_curso_ajax/',
             type:  'POST',
             data: JSON.stringify({'id':$('.ajax_curso').val() }),
             dataType:  'json',
@@ -49,7 +49,7 @@ $(function () {
     $('.ajax_curso').click(function() {
         var valor_curso = $('.ajax_curso').val();
         $.ajax({
-            url:  '/recebe_id_curso_ajax/',
+            url:  '/secretaria/recebe_id_curso_ajax/',
             type:  'POST',
             data: JSON.stringify({'id':$('.ajax_curso').val() }),
             dataType:  'json',

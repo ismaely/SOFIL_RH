@@ -1,0 +1,59 @@
+<!DOCTYPE html> {% extends 'home_base.html' %}{% block corpo %}{% load static %}
+<!--
+@File   : estatistica_mestrado.html
+@Author : Gunza Ismael ({__email})
+@Link   : 
+@Date   : 03/11/2019, 14:46:03
+-->
+
+<div id="">
+    <div class="col-md-12 padding-0" style="margin-top:20px;">
+        <div class="col-md-12 padding-0">
+
+            <div class="col-md-6 padding-0">
+                <div class="col-md-12 padding-0">
+
+                    <div class="col-md-12">
+                        <div class="panel">
+                            <div class="panel-heading-white panel-heading">
+                                <h4>Polar Area Chart</h4>
+                            </div>
+                            <div class="panel-body" style="">
+                                <canvas class="polar-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel">
+                    <div class="panel-heading-white panel-heading">
+                        <h4>Line Chart</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            <canvas class="line-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-heading-white panel-heading">
+                    <h4>Bar Chart</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <canvas class="bar-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+{% endblock %}

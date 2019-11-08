@@ -1,6 +1,7 @@
 from django.db import models
 from core_help.opcoes_escolha import GENERO, ESTADO_CIVIL, GRAU_ACDAEMICO_DOCENTE, OPCAO_NOTA
-from core_help.models import Provincias, Instituicao_superior, Semestre, Especialidade, Ano, Cursos
+from core_help.models import Provincias, Instituicao_superior, Semestre, Especialidade, Ano, Cursos, Municipio, Descricao_Nota
+from SOFIL_RH.settings import DATE_FORMAT, DATE_INPUT_FORMATS
 
 # Create your models here.
 
@@ -16,6 +17,7 @@ class Pessoa(models.Model):
     residencia = models.CharField(max_length=90, blank=True, null=True)
     telefone = models.CharField(max_length=30, blank=True, null=True, default="--")
     email = models.EmailField(max_length=60, blank=True, null=True, default="cpppgl_uan@gmail.com")
+    municipio = models.ForeignKey(Municipio, on_delete=models.CASCADE, parent_link=True)
     
     def __str__(self):
         return self.id
@@ -56,10 +58,10 @@ class Modulo_Disciplina(models.Model):
     curso = models.ForeignKey(Cursos, on_delete=models.CASCADE, parent_link=True)
     nome = models.CharField(max_length=190)
     sigla_codigo = models.CharField(max_length=190, blank=True, null=True, default="--")
-    Horas = models.CharField(max_length=12, blank=True, null=True, default="--")
+    Horas = models.CharField(max_length=20, blank=True, null=True, default="")
     credito = models.CharField(max_length=9, blank=True, null=True, default="--")
     estado = models.CharField(max_length=19, blank=True, null=True, default="Ativado")
-    tipo = models.CharField(max_length=19, blank=True, null=True, default="")
+    #tipo = models.CharField(max_length=19, blank=True, null=True, default="")
 
     def __str__ (self):
         return  "%s -> %s" % (self.nome, self.tipo)
@@ -109,11 +111,26 @@ class Matricula(models.Model):
 class Nota(models.Model):
     estudante = models.ForeignKey(Estudante, on_delete=models.CASCADE, parent_link=True)
     matricula = models.ForeignKey(Matricula, on_delete=models.CASCADE, parent_link=True)
-    curso = models.ForeignKey(Cursos, on_delete=models.CASCADE, parent_link=True)
+    descricao = models.ForeignKey(Descricao_Nota, on_delete=models.CASCADE, parent_link=True)
     modulo = models.ForeignKey(Modulo_Disciplina, on_delete=models.CASCADE, parent_link=True)
+    ano = models.ForeignKey(Ano, on_delete=models.CASCADE, blank=True, null=True, parent_link=True)
+    semestre = models.ForeignKey(Semestre, on_delete=models.CASCADE, blank=True, null=True, parent_link=True)
     nota = models.CharField(max_length=2)
     data_entrada = models.DateField()
     data_registo_automatico = models.DateField(auto_now=True)
+
+    def __str__ (self):
+        return self.id
+    
+    
+class Nota_final_Monografia(models.Model):
+    estudante = models.ForeignKey(Estudante, on_delete=models.CASCADE, parent_link=True)
+    curso = models.ForeignKey(Cursos, on_delete=models.CASCADE, parent_link=True)
+    nota = models.CharField(max_length=2)
+    descricao = models.ForeignKey(Descricao_Nota, on_delete=models.CASCADE, parent_link=True)
+    data_defesa = models.DateField()
+    data_registo_automatico = models.DateField(auto_now=True)
+    especialidade = models.ForeignKey(Especialidade, on_delete=models.SET_NULL, blank=True, null=True, parent_link=True)
 
     def __str__ (self):
         return self.id

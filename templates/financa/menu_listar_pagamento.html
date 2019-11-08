@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--
+@File   : menu_listar_pagamento.html
+@Author : Gunza Ismael ({__email})
+@Link   : 
+@Date   : 09/08/2019, 12:24:04
+-->
+
+{% extends 'home_base.html' %}{% block corpo %}{% load static %}
+
+
+<div class="col-md-12 modal-example">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">
+                {% if escolha == 1 %}
+                <h4>Listar Pagamento</h4>
+                {% else %}
+                <h4>Listar estudantes quem devem</h4>
+                {% endif %}
+            </div>
+            <div class="panel-body">
+
+                <div class="col-md-12">
+                    <div class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Escolha o Mes e o Ano</h4>
+                                </div>
+                                {% if escolha == 1 %}
+                                <form role="form" action="{% url 'financas:listar-pagamento' %}" method="POST">
+                                    {% else %}
+                                    <form role="form" action="{% url 'financas:listar-divida' %}" method="POST">
+                                        {% endif %} {% csrf_token %} {% autoescape on %}
+                                        <div class="modal-body">
+                                            {{ form.data_entrada }} {{ form.data_entrada.errors }}
+                                        </div>
+                                        {% if escolha == 1 %}
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">LISTAR</button>
+                                        </div>
+                                        {% else %}
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">LISTAR DIVIDA </button>
+                                        </div>
+                                        {% endif %} {% endautoescape %}
+                                    </form>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    {% endblock %}
