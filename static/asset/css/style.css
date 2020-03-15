@@ -538,6 +538,7 @@ p.quote:before {
     padding: 10px;
     border: none !important;
     box-shadow: 0 7px 10px #0a86e9, 0 4px 5px #0a86e9;
+    border-radius: 25px;
 }
 
 .form-signin .panel-body {

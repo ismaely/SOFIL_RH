@@ -74,7 +74,7 @@ $(function () {
             }
         });
 
-        if($('.ajax_curso').val() == 1 || $('.ajax_curso').val() == 2){
+        if($('.ajax_curso').val() >=1 && $('.ajax_curso').val() <= 4){
             $(".ajax_especialidade").attr("disabled", "disabled");
         }else{
             $(".ajax_especialidade").removeAttr("disabled", "disabled");

@@ -4,6 +4,7 @@
 # @Link   : 
 # @Date   : 09/07/2019, 06:09:56
 from django.urls import path
+from hashlib import blake2b
 from . import views
 
 
@@ -20,5 +21,6 @@ urlpatterns = [
     path('desativar_conta/<int:pk>/', views.desativar_conta, name='desativar'),
     path('ativar_conta/<int:pk>/', views.ativar_conta, name='ativar'),
     path('atualizar_funcao_categoria/<int:pk>/', views.atualizar_funcao_categoria, name='atualizar_funcao'),
+    path('perfil_utilizador/', views.perfil_utilizador, name='perfil'),
    
 ]

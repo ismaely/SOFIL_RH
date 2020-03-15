@@ -3,10 +3,7 @@ from core_help.core import retorna_id
 # Create your views here.
 
 
-
-
-
-
+@login_required
 def listar_utilizador(request):
     lista =[]
     lista = Controla_SenhaPadrao.objects.select_related('pessoa').all()
@@ -14,7 +11,7 @@ def listar_utilizador(request):
     return render (request, 'utilizador/listar_utilizador.html', context)
 
 
-
+@login_required
 def ativar_conta(request, pk):
     if pk > 0:
         user = User.objects.get(id=pk)
@@ -27,7 +24,7 @@ def ativar_conta(request, pk):
         return HttpResponseRedirect(reverse('utilizador:listar_utilizador'))
 
 
-
+@login_required
 def desativar_conta(request, pk):
     if pk > 0:
         user = User.objects.get(id=pk)
@@ -40,7 +37,7 @@ def desativar_conta(request, pk):
         return HttpResponseRedirect(reverse('utilizador:listar_utilizador'))
 
 
-
+@login_required
 def atualizar_funcao_categoria(request, pk):
     form = Actualizar_categoria_Form(request.POST or None)
     if request.method == 'POST':
@@ -50,6 +47,12 @@ def atualizar_funcao_categoria(request, pk):
             user.save()
             sweetify.success(request,'Função atualizada com sucesso!....', timer='4900', button='Ok')
     return HttpResponseRedirect(reverse('utilizador:listar_utilizador'))
+
+
+def perfil_utilizador(request):
+    
+    context = {}
+    return render (request, 'utilizador/perfil.html', context)
 
 
 # função que vai receber o dados da obrigação da troca de senha quando criar a conta
@@ -78,7 +81,6 @@ def troca_senha_padrao(request):
 
 
 
-
 def login_sistema(request):
     form = LoginForm(request.POST or None)
     if request.method == 'POST':
@@ -87,11 +89,13 @@ def login_sistema(request):
                 lista = []
                 senha = form.cleaned_data.get('senha')
                 nome = form.cleaned_data.get('nome_utilizador')
-                user = authenticate(username=nome,password=senha)
-                if user is not None:
-                    conta = Controla_SenhaPadrao.objects.get(user_id = user.id)
-                    if int(conta.estado) == 1:
-                        if user.is_active:
+                resp = User.objects.get(username=nome)
+                password = check_password(senha, resp.password)
+                if resp.username == nome and password:
+                    conta = Controla_SenhaPadrao.objects.get(user_id = resp.id)
+                    if resp.is_active: 
+                        if int(conta.estado) == 1:
+                            user = authenticate(username=nome,password=senha)
                             login(request, user)
                             return HttpResponseRedirect(reverse('secretaria:home'))
                         else:
@@ -111,7 +115,7 @@ def login_sistema(request):
 
 
 
-#@login_required
+@login_required
 def criar_conta_utilizador(request):
     #form = PessoaForm(request.POST or None)
     form = Utilizador_Form(request.POST or None)
@@ -136,7 +140,7 @@ def criar_conta_utilizador(request):
 
 
 
-#@login_required
+@login_required
 def registar_utilizador(request):
     form = PessoaForm(request.POST or None)
     form2 = Utilizador_Form(request.POST or None)
@@ -153,8 +157,7 @@ def registar_utilizador(request):
             sweetify.success(request, 'Conta criada com sucesso! <br> Depois o utilizador deve alterar a senha Padrão....', persistent='OK', timer='3100')
             return HttpResponseRedirect(reverse('secretaria:home'))
         except Exception as e:
-            print(e)
-            #IntegrityError
+            #print(e)
             sweetify.error(request, 'Já existe um utilizador com este nome de Utilizador!.', persistent='OK', timer='3100')
    
     context = {'form':form, 'form2':form2}

@@ -126,7 +126,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'pt-PT'
+#LANGUAGE_CODE = 'pt-PT'
 LANGUAGES = (
     ('pt', u'Português'),
     ('en-us', u'English (US)'),
@@ -134,12 +134,8 @@ LANGUAGES = (
     ('es', u'Español'),
     
 )
-DATETIME_INPUT_FORMATS = ['%d/%m/%Y',
-                          '%d/%m/%Y %H:%M:%S',
-                          '%d-%m-%Y %H:%M:%S',
-                          '%d-%m-%Y'
-                          '%d/%m/%Y %H:%M:%S.%f']
-DATE_INPUT_FORMATS = ['%d/%m/%Y']
+DATETIME_INPUT_FORMATS = ['%d/%m/%Y','%d/%m/%Y %H:%M:%S','%d-%m-%Y %H:%M:%S','%d-%m-%Y','%d/%m/%Y %H:%M:%S.%f']
+#DATE_INPUT_FORMATS = ['%d/%m/%Y']
 DATE_FORMAT = '%d/%m/%Y'
 TIME_ZONE = 'UTC'
 
@@ -152,6 +148,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+# possible options: 'sweetalert', 'sweetalert2' - default is 'sweetalert2'
+SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
@@ -160,6 +159,11 @@ MEDIA_ROOT = '{}/media/'.format(BASE_DIR)
 #MEDIA_ROOT = os.path.join(BASE_DIR, '/media')
 MEDIA_URL = '/media/'
 
+
+# Aque é onde esto a pegar a hora e as datas que esto a usar para alguns casos 
+DATE_FORMAT = date.today()
+DATA_ANO = timezone.now().year
+DATA_MES = timezone.now().month
 
 LOGIN_REDIRECT_URL = '/login/' 
 LOGOUT_REDIRECT_URL = '/'

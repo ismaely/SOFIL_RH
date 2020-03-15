@@ -1,0 +1,93 @@
+<!--
+@File   : perfil.html
+@Author : Gunza Ismael ({__email})
+@Link   : 
+@Date   : 23/12/2019, 23:49:08
+-->
+{% extends 'home_base.html' %}{% block corpo %}{% load static %}
+
+<div class="" role="main">
+
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3></h3>
+            </div>
+
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+
+                    <div class="x_content">
+                        <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+
+                            <div class="profile_img">
+                                <!-- end of image cropping -->
+                                <div id="crop-avatar">
+                                    <!-- Current avatar -->
+                                    <div class="avatar-view" title="Change the avatar">
+                                        <img src="{% static '/asset/img/user.png' %}" alt="Avatar">
+                                    </div>
+                                    <!-- Loading state -->
+                                    <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
+                                </div>
+                                <!-- end of image cropping -->
+
+                            </div>
+                            <h5> Nome: <strong>{{ resp.aluno.pessoa.nome }} </strong> </5>
+                                <ul class="list-unstyled user_data">
+                                    <li>
+                                        Categoria:{{ resp.curso.nome }}
+                                    </li>
+                                    <li> Nª: {{ resp.aluno.numero_estudante }}
+                                    </li>
+
+                                </ul>
+                                <a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>Editar Perfil</a>
+                                <br/>
+                        </div>
+
+
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <div class="col-md-6">
+                                <h2>Dados do Utilizador</h2>
+                            </div>
+                            <div class="col-md-12">
+
+                                <!-- start user projects -->
+                                <table class="data table table-striped no-margin">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Morada</th>
+                                            <th>Telefonee</th>
+                                            <th class="">Email</th>
+                                            <th>B.I. Nº</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr>
+                                            <td class=""> {{ dados.id }}</td>
+                                            <td class=""> {{ dados.disciplina.nome }}</td>
+                                            <td class="">{{ dados.nota }}</td>
+                                            <td class=" ">{{ dados.descricao.nome }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

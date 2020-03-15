@@ -8,6 +8,15 @@
 
 <div id="">
     <div class="col-md-12 padding-0" style="margin-top:20px;">
+        <div class=" col-md-1">
+
+            <div id="probido_ver" style="display:none">
+                <p id="total_curso"> {{ total_curso }}</p>
+                <p id="total_masculino"> {{ total_masculino }}</p>
+                <p id="total_femenino"> {{ total_femenino }}</p>
+            </div>
+
+        </div>
         <div class="col-md-12 padding-0">
 
             <div class="col-md-6 padding-0">
@@ -16,10 +25,10 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-heading-white panel-heading">
-                                <h4>Polar Area Chart</h4>
+                                <h4>{{ titulo }} </h4>
                             </div>
                             <div class="panel-body" style="">
-                                <canvas class="polar-chart"></canvas>
+                                <div class="" id="mestrado_container"></div>
                             </div>
                         </div>
                     </div>
@@ -28,7 +37,7 @@
             <div class="col-md-6">
                 <div class="panel">
                     <div class="panel-heading-white panel-heading">
-                        <h4>Line Chart</h4>
+                        <h4>Reservado</h4>
                     </div>
                     <div class="panel-body">
                         <div class="col-md-12">
@@ -38,8 +47,12 @@
                 </div>
             </div>
         </div>
+
+
+
+        <!-- esse esta ocultado -->
         <div class="col-md-12">
-            <div class="panel">
+            <div class="panel" style="display:none">
                 <div class="panel-heading-white panel-heading">
                     <h4>Bar Chart</h4>
                 </div>

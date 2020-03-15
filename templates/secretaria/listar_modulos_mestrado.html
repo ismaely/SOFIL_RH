@@ -13,6 +13,7 @@
             <div class="panel">
                 <div class="panel-heading">
                     <h3>Modulos do Plano Curricular de Mestrado</h3>
+
                 </div>
                 <div class="panel-body">
                     <div class="responsive-table">
@@ -33,16 +34,16 @@
                                 {% for dados in lista %}
                                 <tr>
                                     <td class=" ">{{ dados.id }}</td>
-                                    <td class=" ">{{ dados.nome|upper }}</td>
+                                    <td class=" ">{{ dados.modulo.nome|upper }}</td>
                                     <td class=" ">{{ dados.curso.nome }}</td>
-                                    <td class=" ">{{ dados.sigla_codigo|upper }}</td>
+                                    <td class=" ">{{ dados.modulo.sigla_codigo|upper }}</td>
                                     <td class=" ">{{ dados.ano.nome }}</td>
                                     <td class=" ">{{ dados.semestre.nome }}</td>
 
-                                    {% if dados.estado == 'Ativado' %}
-                                    <td class="btn btn-success"> {{ dados.estado|upper }}</td>
+                                    {% if dados.modulo.estado == 'Ativado' %}
+                                    <td class="btn btn-success"> {{ dados.modulo.estado|upper }}</td>
                                     {% else %}
-                                    <td class="btn btn-danger"> {{ dados.estado|upper }}</td>
+                                    <td class="btn btn-danger"> {{ dados.modulo.estado|upper }}</td>
                                     {% endif %}
                                     <td>
                                         <div class="btn-group" role="group">
@@ -52,10 +53,10 @@
                                             </button>
                                             <ul class="dropdown-menu">
                                                 <li><a href="{% url 'secretaria:editar-modulo-mestrado' dados.id %}">Editar o Modulo</a></li>
-                                                {% if dados.estado == 'Ativado' %}
-                                                <li><a href="{% url 'secretaria:cancelar_modulo_mestrado' dados.id %}">Cancelar</a></li>
+                                                {% if dados.modulo.estado == 'Ativado' %}
+                                                <li><a href="{% url 'secretaria:cancelar_modulo_mestrado' dados.modulo.id %}">Cancelar</a></li>
                                                 {% else %}
-                                                <li><a href="{% url 'secretaria:ativar_modulo_mestrado' dados.id %}">Ativar</a></li>
+                                                <li><a href="{% url 'secretaria:ativar_modulo_mestrado' dados.modulo.id %}">Ativar</a></li>
                                                 {% endif %}
                                             </ul>
                                         </div>
@@ -65,6 +66,11 @@
                                 {% endfor %}
                             </tbody>
                         </table>
+                    </div>
+                    <div class="">
+                        <center>
+                            <input type="button" value="Imprimir em pdf" class="btn btn-danger box-shadow-none" />
+                        </center>
                     </div>
                 </div>
             </div>

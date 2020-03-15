@@ -3,6 +3,7 @@
 # @Link   : 
 # @Date   : 27/06/2019, 08:55:23
 from django.urls import path
+from hashlib import blake2b
 from . import views
 
 app_name = 'financas'

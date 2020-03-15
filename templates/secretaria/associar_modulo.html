@@ -1,0 +1,60 @@
+<!DOCTYPE html> {% extends 'home_base.html' %}{% block corpo %}{% load static %}
+<!--
+@File   : associar_modulo.html
+@Author : Gunza Ismael ({__email})
+@Link   : 
+@Date   : 21/12/2019, 15:33:32
+-->
+
+<div id="">
+    <div class="form-element">
+        <div class="col-md-12 padding-0">
+            <div class="col-md-12">
+                <div class="panel form-element-padding">
+                    <div class="panel-heading">
+
+                        <h4>Associar o Modulo Existente á Outro Curso</h4>
+                    </div>
+                    <div class="panel-body" style="padding-bottom:30px;">
+                        <div class="col-md-12">
+
+                            <form role="form" action="{% url 'secretaria:associar-modulo' %}" method="POST">
+                                {% csrf_token %} {% autoescape on %}
+                                <div class="col-md-6">
+                                    <div class="form-group " style="margin: -10px 0px !important;">
+                                        <label class="col-sm-10 control-label">Nome do Modulo</label> {{ form.nome }} {{ form.nome.errors }}
+                                    </div>
+                                    <div class="form-group " style="margin: -10px 0px !important;">
+                                        <label class="col-sm-10 control-label ">Curso</label> {{ form.curso }} {{ form.curso.errors }}
+                                    </div>
+                                    <div class="form-group " style="margin: -10px 0px !important;">
+                                        <label class="col-sm-10 control-label">Especialidade</label> {{ form.especialidade }} {{ form.especialidade.errors }}
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group " style="margin: -10px 0px !important;">
+                                        <label class="col-sm-10 control-label">Ano</label> {{ form.ano }} {{ form.ano.errors }}
+                                    </div>
+                                    <div class="form-group " style="margin: -10px 0px !important;">
+                                        <label class="col-sm-10 control-label ">Semestre</label> {{ form.semestre }} {{ form.semestre.errors }}
+                                    </div>
+
+
+                                    <ul class="form-group list-inline ">
+                                        <li><button type="submit" class="col-md-12 btn btn-primary next-step">Salvar</button></li>
+                                    </ul>
+                                </div>
+
+                                {% endautoescape %}
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -31,6 +31,7 @@ GRAU= (
 TIPO_CONSULTAR_DADOS = (
     ('', '-----------'),
     ('Nota', 'Ver á Nota'),
+    ('Ficha', 'Ver á Ficha Pessoal'),
 )
 
 

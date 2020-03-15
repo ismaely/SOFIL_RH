@@ -60,8 +60,8 @@ class Troca_SenhaPadrao_Form(forms.Form):
         senha =str(self.cleaned_data.get('senha'))
         confirma_senha = str(self.cleaned_data.get('confirma_senha'))
             
-        if senha == "cpppgl":
-            raise forms.ValidationError("A senha não é valida")
+        if senha == "cpppgl" or len(senha) < 4:
+            raise forms.ValidationError("A senha não é valida! é fraca")
         else:
             if senha != confirma_senha:
                 raise forms.ValidationError("A senha é diferente!")

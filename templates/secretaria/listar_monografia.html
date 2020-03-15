@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <!--
 @File   : listar_modulos.html
 @Author : Gunza Ismael ({__email})
@@ -63,7 +62,7 @@
                                             </button>
                                             <ul class="dropdown-menu">
                                                 <li><a href="{% url 'secretaria:editar-monografias' dados.id %}"> Editar</a></li>
-                                                <li><a href="#">Visualizar</a></li>
+                                                <li><a href="{% url 'secretaria:visualizar-monografia' dados.id %}">Visualizar Monografia</a></li>
                                                 <li><a href="{% url 'secretaria:cancelar-monografia' dados.id %}">Cancelar</a></li>
                                                 <li><a href="{% url 'secretaria:aprovacao-monografia' dados.id %}">Aprovar</a></li>
                                                 <li><a href="{% url 'secretaria:eliminar-monografia' dados.id %}">Eliminar</a></li>

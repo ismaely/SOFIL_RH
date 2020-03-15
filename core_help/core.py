@@ -8,14 +8,15 @@ from secretaria.models import Pessoa, Estudante, Profissao, Modulo_Disciplina
 # recebe valor e retorna id 
 def retorna_id(value):
     try:
-        bi = Pessoa.objects.get(bi=value)
-        if bi.id is not None:
-            return bi.id
+        resp = Estudante.objects.get(pessoa__bi=value)
+        if resp.id:
+            return resp.id
             #sweetify.error(request,'O Numero do Aluno não é valido!....', timer='4900', button='Ok')
-    except Pessoa.DoesNotExist:
+    except Estudante.DoesNotExist:
         try:
-            alu = Estudante.objects.get(numero_estudante=value)
-            return alu.id
+            resp = Estudante.objects.get(numero_estudante=value)
+            if resp.id:
+                return resp.id
         except Estudante.DoesNotExist:
             #sweetify.error(request,'O Numero de Aluno não é valido!....', timer='4900', button='Ok')
             return 0
@@ -32,7 +33,8 @@ def retorna_id_estudante(value):
     except Pessoa.DoesNotExist:
         try:
             alu = Estudante.objects.get(numero_estudante=value)
-            return alu.id
+            if alu.id:
+                return alu.id
         except Estudante.DoesNotExist:
             #sweetify.error(request,'O Numero de Aluno não é valido!....', timer='4900', button='Ok')
             return 0

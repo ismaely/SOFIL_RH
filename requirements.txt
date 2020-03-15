@@ -1,3 +1,4 @@
+asgiref==3.2.3
 asn1crypto==0.24.0
 astroid==1.6.1
 certifi==2017.11.5
@@ -5,12 +6,12 @@ cffi==1.11.2
 chardet==3.0.4
 cryptography==2.1.4
 decorator==4.1.2
-Django==2.2.1
-django-chartjs==1.3
+Django==3.0.1
 django-json-tag==0.0.1
 django-master-password==1.1.1
 django-qrcode==0.3
 django-secure==1.0.1
+get-mac==0.8.2
 gunicorn==19.9.0
 html5lib==1.0b10
 httplib2==0.10.3
@@ -20,6 +21,7 @@ ipython-genutils==0.2.0
 isort==4.3.4
 jedi==0.11.1
 lazy-object-proxy==1.3.1
+lxml==4.4.1
 mccabe==0.6.1
 mysqlclient==1.3.13
 passlib==1.7.1
@@ -38,10 +40,12 @@ PyJWT==1.7.1
 pylama==7.4.3
 pylama-pylint==3.0.1
 pylint==1.8.2
+pylokit==0.8.1
 PyPDF2==1.26.0
 PyQRCode==1.2.1
 PySocks==1.7.0
 python-barcode==0.10.0
+python-docx==0.8.10
 pytz==2017.3
 qrcode==6.1
 reportlab==3.4.0
@@ -53,9 +57,11 @@ sqlparse==0.3.0
 sweetify==2.0.0
 tabulate==0.8.2
 traitlets==4.3.2
+translate-pdf-word==0.0.2
 treepoem==3.1.0
-#twilio==6.30.0
+twilio==6.30.0
 urllib3==1.22
+uuid==1.30
 uWSGI==2.0.17.1
 validators==0.12.1
 wcwidth==0.1.7

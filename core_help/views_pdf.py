@@ -39,7 +39,7 @@ def rodape_factura(canvas, doc):
     canvas.drawString(11.2*cm, 19.5* cm,'E-mail: cpppgl.org@gmail.com')
     canvas.drawString(11.2*cm, 19* cm,'Telefone: 222-153555')
     canvas.drawString(13.9*cm, 18.3* cm,'Luanda - Angola')
-    canvas.drawString(14.3*cm, 17.8* cm,'Data')
+    #canvas.drawString(14.3*cm, 17.8* cm,'Data')
 
     #ASSINATURA
     canvas.line(350,130,570,130)
@@ -99,7 +99,7 @@ def pdf_horizontal_cabeca(response):
 #RODAPE DA DECLARAÇÃO
 def rodape_imagem_Vertical(canvas, doc):
     logo = os.path.join(settings.MEDIA_ROOT, str('logo/folha_simples.png'))
-    canvas.drawImage(logo, 0, 15, width=580, height=769, mask=None)
+    canvas.drawImage(logo, 0, 15, width=618, height=769, mask=None)
     styles = getSampleStyleSheet()
     
     canvas.drawString(269,39*mm,'O Director')
@@ -115,8 +115,6 @@ def rodape_ficha_matricula(canvas, doc):
     logo = os.path.join(settings.MEDIA_ROOT, str('logo/ficha_inscricao.png'))
     canvas.drawImage(logo, 0, 15, width=580, height=769, mask=None)
     
-    
-    
     canvas.drawString(269,39*mm,'Operador')
     canvas.line(188,32*mm,406,32*mm)
     #canvas.drawString(189,28*mm,'Prof. Carlos Manuel dos Santos Teixeira')
@@ -128,9 +126,9 @@ def rodape_ficha_matricula(canvas, doc):
 
 
 def rodape_numero_pagina_imagem_horizontal(canvas, doc):
-    canvas.setPageSize((10.9*inch, 7.7*inch))
+    #canvas.setPageSize((10.9*inch, 7.7*inch))
     logo = os.path.join(settings.MEDIA_ROOT, str('logo/folha_simples.png'))
-    canvas.drawImage(logo, 0, 15, width=555, height=534, mask=None)
+    canvas.drawImage(logo, 0, 15, width=555, height=780, mask=None)
     page_num = canvas.getPageNumber()
     text = "Pagina #%s" % page_num
     canvas.drawRightString(256*mm, 20*mm, text)
@@ -142,7 +140,7 @@ def gerar_pdf_simples(value):
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'inline; filename="Lista_Nominal.pdf"'
     #p = canvas.Canvas(buffer)
-    doc = SimpleDocTemplate(buffer,pagesize=letter, rightMargin=-120,leftMargin=60,topMargin=340,bottomMargin=75)
+    doc = SimpleDocTemplate(buffer,pagesize=letter, rightMargin=40,leftMargin=40,topMargin=130,bottomMargin=70)
     #print(doc.height)
     styles = getSampleStyleSheet()
     styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY))

@@ -13,7 +13,7 @@ $(document).ready(function () {
     $('.mask-bi').mask('000000000SS000');
 
 
-    // função que vai pegar todas as especialidade e disciplinas em atraso de cada curso,  atraves do id do curso
+    // matricula (atualizar) função que vai pegar todas as especialidade e disciplinas em atraso de cada curso,  atraves do id do curso
     if ($('.ajax_curso_especialidade').val() > 0) {
         //var valor_curso = $('.ajax_curso').val();
         $.ajax({
@@ -118,7 +118,7 @@ $(document).ready(function () {
             }
         });
 
-        if ($('.ajax_curso_especialidade').val() == 1 || $('.ajax_curso_especialidade').val() == 2) {
+        if ($('.ajax_curso_especialidade').val() >= 1 && $('.ajax_curso_especialidade').val() <= 4) {
             $(".ajax_especialidade").attr("disabled", "disabled");
         } else {
             $(".ajax_especialidade").removeAttr("disabled", "disabled");
@@ -166,6 +166,130 @@ $(document).ready(function () {
       }
 
     });
+
+
+    // função vai trocar a especialidade em função do curso escolhido do mestrado escolhido para função registra monografia
+    $('.ajax_curso_monografia').click(function () {
+        //var valor_curso = $('.ajax_curso').val();
+        var nova_escolhas = document.getElementById("id_especialidade");
+        if($('.ajax_curso_monografia').val() > 0){
+        $.ajax({
+            url: '/secretaria/recebe_idCurso_retornaEspecialidade_ajax/',
+            type: 'POST',
+            data: JSON.stringify({ 'id': $('.ajax_curso_monografia').val() }),
+            dataType: 'json',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            success: function (data) {
+                
+                while (nova_escolhas.options.length) {
+                    nova_escolhas.remove(0);
+                }
+                for (let k = 0; k < data.resposta.length; k++) {
+                    var resp = data.resposta[k];
+                    var novos = new Option(resp[1], resp[0]);
+                    nova_escolhas.options.add(novos)
+                }
+            },
+            error: function () {
+                console.log('erro interno')
+            }
+        });
+      }else{
+        
+        while (nova_escolhas.options.length) {
+            nova_escolhas.remove(0);
+        }
+      }
+
+    });
+
+
+    // função vai trocar a especialidade, e esconder em função do ANO, ao registar o modulo de mestrado
+    $('.ajax_ano_moduloMestrado').click(function () {
+        //var valor_curso = $('.ajax_curso').val();
+        var nova_escolhas = document.getElementById("id_especialidade");
+        if($('.ajax_modulo_curso_mestrado').val() > 0 && $('.ajax_ano_moduloMestrado').val() > 1){
+        $.ajax({
+            url: '/secretaria/recebe_idCurso_retornaEspecialidade_ajax/',
+            type: 'POST',
+            data: JSON.stringify({ 'id': $('.ajax_modulo_curso_mestrado').val() }),
+            dataType: 'json',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            success: function (data) {
+                
+                while (nova_escolhas.options.length) {
+                    nova_escolhas.remove(0);
+                }
+                for (let k = 0; k < data.resposta.length; k++) {
+                    var resp = data.resposta[k];
+                    var novos = new Option(resp[1], resp[0]);
+                    nova_escolhas.options.add(novos)
+                }
+            },
+            error: function () {
+                console.log('erro interno')
+            }
+        });
+      }else{
+        
+        while (nova_escolhas.options.length) {
+            nova_escolhas.remove(0);
+        }
+        $(".ajax_especialidade").removeAttr("disabled", "disabled");
+      }
+
+    });
+
+
+    // função vai trocar a especialidade, e esconder em função do curso (botao curso), ao registar o modulo de mestrado < igual a função ajax_ano_moduloMestrado >
+    $('.ajax_modulo_curso_mestrado').click(function () {
+        //var valor_curso = $('.ajax_curso').val();
+        var nova_escolhas = document.getElementById("id_especialidade");
+        if($('.ajax_modulo_curso_mestrado').val() > 0 && $('.ajax_ano_moduloMestrado').val() > 1){
+        $.ajax({
+            url: '/secretaria/recebe_idCurso_retornaEspecialidade_ajax/',
+            type: 'POST',
+            data: JSON.stringify({ 'id': $('.ajax_modulo_curso_mestrado').val() }),
+            dataType: 'json',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            success: function (data) {
+                
+                while (nova_escolhas.options.length) {
+                    nova_escolhas.remove(0);
+                }
+                for (let k = 0; k < data.resposta.length; k++) {
+                    var resp = data.resposta[k];
+                    var novos = new Option(resp[1], resp[0]);
+                    nova_escolhas.options.add(novos)
+                }
+            },
+            error: function () {
+                console.log('erro interno')
+            }
+        });
+      }else{
+        
+        while (nova_escolhas.options.length) {
+            nova_escolhas.remove(0);
+        }
+        $(".ajax_especialidade").removeAttr("disabled", "disabled");
+      }
+
+    });
+
+
 
 
     // matricula ---função que vai pegar todas as especialidade e disciplinas em atraso de cada curso,  atraves do id do curso
@@ -297,7 +421,7 @@ $(document).ready(function () {
             }
         });
 
-        if ($('.ajax_curso_especialidade').val() == 1 || $('.ajax_curso_especialidade').val() == 2) {
+        if ($('.ajax_curso_especialidade').val() >= 1 && $('.ajax_curso_especialidade').val() <= 4) {
             var semestre = document.getElementById("id_semestre");
             var ano = document.getElementById("id_ano");
             

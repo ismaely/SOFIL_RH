@@ -30,46 +30,86 @@
 
                             <table class="table table-striped">
                                 <tr>
-                                    <th>Modulo</th>
+                                    <th>Módulo</th>
                                     <th>Data</th>
                                     <th>Nota</th>
                                     <th>Descrição</th>
+                                    <th>Opção</th>
                                 </tr>
                                 <!-- 1º semestre mestrado-->
                                 {% if grau == '2' and limite > 0 %}
                                 <tr>
                                     <th colspan="4"><b> 1º Semestre </b></th>
                                 </tr>
-                                {% for item in lista %} {% if item.semestre_id == 1 %}
+                                {% for item in notas %} {% if item.semestre_id == 1 %}
                                 <tr>
-                                    <td>{{ item.modulo.nome }} </td>
+                                    <td>{{ item.modulo_curso.modulo.nome }} </td>
                                     <td>{{ item.data_entrada }}</td>
                                     <td>{{ item.nota }}</td>
                                     <td>{{ item.descricao.nome }}</td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                              Opções
+                                              <span class="fa fa-angle-down"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li></li>
+                                                <li><a href="{% url 'secretaria:alterar-nota' item.id %}">Alterar a Nota</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
                                 </tr>
                                 {% endif %} {% endfor %}
                                 <!-- 2º semestre-->
                                 <tr>
                                     <th colspan="4"><b> 2º Semestre </b></th>
                                 </tr>
-                                {% for item in lista %} {% if item.semestre_id == 2 %}
+                                {% for item in notas %} {% if item.semestre_id == 2 %}
                                 <tr>
-                                    <td>{{ item.modulo.nome }} </td>
+                                    <td>{{ item.modulo_curso.modulo.nome }} </td>
                                     <td>{{ item.data_entrada }}</td>
                                     <td>{{ item.nota }}</td>
                                     <td>{{ item.descricao.nome }}</td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                              Opções
+                                              <span class="fa fa-angle-down"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li></li>
+                                                <li><a href="{% url 'secretaria:alterar-nota' item.id %}">Alterar a Nota</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
                                 </tr>
                                 {% endif %} {% endfor %}
                                 <!-- 3º semestre-->
                                 <tr>
                                     <th colspan="4"><b> 3º Semestre </b></th>
                                 </tr>
-                                {% for item in lista %} {% if item.semestre_id == 3 %}
+                                {% for item in notas %} {% if item.semestre_id == 3 %}
                                 <tr>
-                                    <td>{{ item.modulo.nome }} </td>
+                                    <td>{{ item.modulo_curso.modulo.nome }} </td>
                                     <td>{{ item.data_entrada }}</td>
                                     <td>{{ item.nota }}</td>
                                     <td>{{ item.descricao.nome }}</td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                              Opções
+                                              <span class="fa fa-angle-down"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li></li>
+                                                <li><a href="{% url 'secretaria:alterar-nota' item.id %}">Alterar a Nota</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
                                 </tr>
 
                                 {% endif %} {% endfor %}{% endif %}
@@ -78,14 +118,27 @@
                                 <!-- POS-GRADUAÇÃO-->
                                 {% if grau == '1' and limite > 0 %}
                                 <tr>
-                                    <th colspan="4"><b> 1º Semestre </b></th>
+                                    <th colspan="4"><b> Semestre  Geral</b></th>
                                 </tr>
-                                {% for item in lista %}
+                                {% for item in notas %}
                                 <tr>
-                                    <td>{{ item.modulo.nome }} </td>
+                                    <td>{{ item.modulo_curso.modulo.nome }} </td>
                                     <td>{{ item.data_entrada }}</td>
                                     <td>{{ item.nota }}</td>
                                     <td>{{ item.descricao.nome }}</td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                              Opções
+                                              <span class="fa fa-angle-down"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li></li>
+                                                <li><a href="{% url 'secretaria:alterar-nota' item.id %}">Alterar a Nota</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
                                 </tr>
                                 {% endfor %}
                                 <!-- 2º semestre-->

@@ -56,7 +56,7 @@
                     <li class="dropdown avatar-dropdown">
                         <img src="{% static '/asset/img/user.png' %}" class="img-circle avatar" alt="user name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" />
                         <ul class="dropdown-menu user-dropdown">
-                            <li><a href="#"><span class="fa fa-user"></span> Perfil</a></li>
+                            <li><a href="{% url 'utilizador:perfil' %}"><span class="fa fa-user"></span> Perfil</a></li>
                             <li role="separator" class="divider"></li>
                             <li class="more">
                                 <ul>
@@ -81,7 +81,7 @@
                     </li>
                     <li class="">
                         <div class="col-md-12">
-                            <img src="{% static '/asset/img/cppgl.jpg' %}" class="col-md-12 img-circle" />
+                            <img src="{% static '/asset/img/cppgl.jpg' %}" class="col-sm-6 col-md-12 img-circle" />
                         </div>
                     </li>
 
@@ -91,16 +91,27 @@
                             <span class="fa-angle-right fa right-arrow text-right"></span>
                         </a>
                         <ul class="nav nav-list tree">
-                            <li><a href="{% url 'secretaria:atrbuir-estudante' %}"> Atribuir Número de Estudante</a></li>
+                            <!-- <li><a href="{% url 'secretaria:atrbuir-estudante' %}"> Atribuir Número de Estudante</a></li>-->
                             <li><a href="{% url 'secretaria:registar-cadastro' %}"> Cadastrar estudante </a></li>
                             <li><a href="{% url 'secretaria:confirma-matricula' %}"> Confirmar Matricula</a></li>
                             <li><a href="{% url 'secretaria:registar-monografia' %}"> Inscrição da Dissertação</a></li>
                             <li><a href="{% url 'secretaria:consultar-dados-pessoal' %}"> Consultar Dados</a></li>
                             <li><a href="{% url 'secretaria:consultar-dados-cadastro' %}"> Alterar Dado de Cadastro</a></li>
-                            <li><a href="{% url 'secretaria:emitir-delaracao' %}">Emitir Declarações</a></li>
                             <li><a href="{% url 'secretaria:lancamento-nota' %}">Lançamento de Nota</a></li>
                             <li><a href="{% url 'secretaria:monografia' %}">Listar Monografias</a></li>
                             <li><a href="{% url 'secretaria:nota_final' %}">Registar Nota da Monografia</a></li>
+                            <li><a href="#"> Gerar Pauta</a></li>
+                            <li class="ripple">
+                                <a class="sub-tree-toggle nav-header">
+                                    <span class="fa-file fa"></span> Emitir Declarações
+                                    <span class="fa-angle-right fa right-arrow text-right"></span>
+                                </a>
+                                <ul class="nav nav-list sub-tree">
+                                    <li><a href="{% url 'secretaria:emitir-delaracao' %}">Formato-> PDF</a></li>
+                                    <li><a href="{% url 'secretaria:emitir-declaracao-word' %}">Formato-> Office Word</a></li>
+                                    <!--<li><a href="#">Associar Modulo Existente</a></li>-->
+                                </ul>
+                            </li>
                             <li class="ripple">
                                 <a class="sub-tree-toggle nav-header">
                                     <span class="fa fa-th-large"></span> Cadastrar Modulo
@@ -109,6 +120,8 @@
                                 <ul class="nav nav-list sub-tree">
                                     <li><a href="{% url 'secretaria:registar-modulo-mestrado' %}">Mestrado</a></li>
                                     <li><a href="{% url 'secretaria:registar-modulo-posGraduacao' %}">Pós-graduação</a></li>
+                                    <li><a href="{% url 'secretaria:associar-modulo' %}">Associar ao Modulo Existente</a></li>
+                                    <!--<li><a href="#">Associar Modulo Existente</a></li>-->
                                 </ul>
                             </li>
 
@@ -169,12 +182,12 @@
                                     <span class="fa-angle-right fa right-arrow text-right"></span>
                                 </a>
                                 <ul class="nav nav-list sub-tree">
-                                    <li><a href="">Menu-geral</a></li>
+                                    <li><a href="#">Menu-geral</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
-                    <li class="ripple">
+                    <!-- <li class="ripple">
                         <a class="tree-toggle nav-header">
                             <span class="fa fa-pencil-square"></span> Relatório
                             <span class="fa-angle-right fa right-arrow text-right"></span> </a>
@@ -183,7 +196,7 @@
                             <li><a href="#">Listar Relatorios</a></li>
                             <li><a href="#">Consultar Dados </a></li>
                         </ul>
-                    </li>
+                    </li>-->
                     <li class="ripple"><a class="tree-toggle nav-header"><span class="fa fa-user"></span> Utilizador
                             <span class="fa-angle-right fa right-arrow text-right"></span> </a>
                         <ul class="nav nav-list tree">
@@ -210,7 +223,7 @@
                 </div>
             </div>
 
-            {% block corpo %} kfjkd {% endblock %}
+            {% block corpo %} {% endblock %}
             <div class="col-md-12">
                 <div class="panel bg-green text-white">
 
@@ -253,6 +266,7 @@
     <script src="{% static '/asset/highcharts/code/modules/cylinder.js' %}"></script>
     <script src="{% static '/asset/highcharts/code/modules/export-data.js' %}"></script>
     <script src="{% static '/asset/highcharts/code/modules/exporting.js' %}"></script>
+    <script src="{% static '/asset/js/grafico/mestrado.js' %}"></script>
 
 
     <!-- custom -->
@@ -260,6 +274,7 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('#datatables-example').DataTable();
+
 
         });
     </script>

@@ -30,20 +30,17 @@ def menu_geral_mestrado(request):
                 resp = Nota_final_Monografia.objects.select_related('estudante').filter(curso_id=curso, especialidade_id=especialidade).all()
                 dados = resp.filter(data_defesa__range=(data_incial, data_final)).all()
                 total_especialidade = len(resp)
+                total_curso= len(resp)
                 total_opcao  = len(dados)
-                if data_incial > data_final:
-                    print(" incial maior", data_incial)
-                else:
-                    print("final maior ", data_final)
                 for item in dados:
                     if item.estudante.pessoa.genero == 'M':
-                        total_masculino = + 1
+                        total_masculino = +1
                     else:
-                        total_femenino = + 1
-                        
+                        total_femenino =+1
+               
             
             context = {'form': form, 'total_curso': total_curso, 'total_especialidade': total_especialidade,
-                       'total_opcao': total_opcao, 'total_masculino': total_masculino, 'total_femenino':total_femenino }
+                       'total_opcao': total_opcao, 'total_masculino': total_masculino, 'total_femenino':total_femenino, 'titulo': titulo }
             return render (request, 'estatistica/estatistica_mestrado.html', context)
     
     context = {'form': form}
