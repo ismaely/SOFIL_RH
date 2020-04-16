@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--
+@File   : listar_modulos.html
+@Author : Gunza Ismael ({__email})
+@Link   : 
+@Date   : 27/06/2019, 10:46:50
+-->
+{% extends 'home_base.html' %}{% block corpo %}{% load static %}
+<div id="">
+
+    <div class="col-md-12  padding-0">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3>Modulos do Plano Curricular de Mestrado</h3>
+
+                </div>
+                <div class="panel-body">
+                    <div class="responsive-table">
+                        <table id="datatables-example" class="table table-striped table-bordered" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Nº</th>
+                                    <th>Name do Modulo</th>
+                                    <th>Curso</th>
+                                    <th>Sigla / Código</th>
+                                    <th>Ano</th>
+                                    <th>Semestre</th>
+                                    <th>Estado</th>
+                                    <th>Acção</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for dados in lista %}
+                                <tr>
+                                    <td class=" ">{{ dados.id }}</td>
+                                    <td class=" ">{{ dados.modulo.nome|upper }}</td>
+                                    <td class=" ">{{ dados.curso.nome }}</td>
+                                    <td class=" ">{{ dados.modulo.sigla_codigo|upper }}</td>
+                                    <td class=" ">{{ dados.ano.nome }}</td>
+                                    <td class=" ">{{ dados.semestre.nome }}</td>
+
+                                    {% if dados.modulo.estado == 'Ativado' %}
+                                    <td class="btn btn-success"> {{ dados.modulo.estado|upper }}</td>
+                                    {% else %}
+                                    <td class="btn btn-danger"> {{ dados.modulo.estado|upper }}</td>
+                                    {% endif %}
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                              Opções
+                                              <span class="fa fa-angle-down"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="{% url 'secretaria:editar-modulo-mestrado' dados.id %}">Editar o Modulo</a></li>
+                                                {% if dados.modulo.estado == 'Ativado' %}
+                                                <li><a href="{% url 'secretaria:cancelar_modulo_mestrado' dados.modulo.id %}">Cancelar</a></li>
+                                                {% else %}
+                                                <li><a href="{% url 'secretaria:ativar_modulo_mestrado' dados.modulo.id %}">Ativar</a></li>
+                                                {% endif %}
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="">
+                        <center>
+                            <input type="button" value="Imprimir em pdf" class="btn btn-danger box-shadow-none" />
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

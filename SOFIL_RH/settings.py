@@ -16,7 +16,6 @@ from datetime import date
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -24,9 +23,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'hh4v2)ve1q0kg@9t&lcju_650)o%vew)or!rfygxt6pjt@l1e_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+X_FRAME_OPTIONS = 'DENY'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+#APPEND_SLASH = True
 
 # Application definition
 
@@ -37,11 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sessions.backends.cache',
     'sweetify',
-    'helper',
     'secretaria',
-    'finacas',
     'estatistica',
+    'core_help',
+    'financas',
+    'utilizador',
 ]
 
 MIDDLEWARE = [
@@ -81,7 +84,7 @@ WSGI_APPLICATION = 'SOFIL_RH.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sofil_rh_academico',
+        'NAME': 'bd_gestao_academica',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': '127.0.0.1',
@@ -91,6 +94,14 @@ DATABASES = {
     },
     }
 }
+
+#acrecentado  para uso no algoritmo das senhas
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+]
 
 
 # Password validation
@@ -115,17 +126,17 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'pt-PT'
+#LANGUAGE_CODE = 'pt-PT'
 LANGUAGES = (
     ('pt', u'Português'),
     ('en-us', u'English (US)'),
-    ('de', u'Deutsch'),
     ('en-gb', u'English (UK)'),
     ('es', u'Español'),
-    ('fr', u'Français'),
     
 )
-
+DATETIME_INPUT_FORMATS = ['%d/%m/%Y','%d/%m/%Y %H:%M:%S','%d-%m-%Y %H:%M:%S','%d-%m-%Y','%d/%m/%Y %H:%M:%S.%f']
+#DATE_INPUT_FORMATS = ['%d/%m/%Y']
+DATE_FORMAT = '%d/%m/%Y'
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -134,13 +145,29 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+# possible options: 'sweetalert', 'sweetalert2' - default is 'sweetalert2'
+SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
 #STATIC_ROOT = '{}/static'.format(BASE_DIR)
-MEDIA_ROOT = '{}/media'.format(BASE_DIR)
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = '{}/media/'.format(BASE_DIR)
+#MEDIA_ROOT = os.path.join(BASE_DIR, '/media')
 MEDIA_URL = '/media/'
+
+
+# Aque é onde esto a pegar a hora e as datas que esto a usar para alguns casos 
+DATE_FORMAT = date.today()
+DATA_ANO = timezone.now().year
+DATA_MES = timezone.now().month
+
+LOGIN_REDIRECT_URL = '/login/' 
+LOGOUT_REDIRECT_URL = '/'
+
+
+#SENHA PADRÃO DO SISTEMA
+SENHA_PADRAO = "cpppgl"

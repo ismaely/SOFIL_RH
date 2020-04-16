@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--
+@File   : sucesso_numero_estudante.html
+@Author : Gunza Ismael ({__email})
+@Link   : 
+@Date   : 12/07/2019, 23:55:12
+-->
+{% extends 'home_base.html' %}{% block corpo %}{% load static %}
+
+<div class="container">
+
+    <div class="col-md-3 ">
+        <p></p>
+    </div>
+    <div class="col-md-8 ">
+        <div class="col-sm-8 col-md-6 product-grid">
+
+            <div class="thumbnail">
+
+                <img src="{% static '/asset/img/user.png' %}" class="img-circle avatar" alt="...">
+                <div class="caption">
+                    <small class="pull-right">
+                    <span class="rate fa-star fa"></span>
+                    <span class="rate fa-star fa"></span>
+                    <span class="rate fa-star fa"></span>
+                    <span class="rate fa-star fa"></span>
+                    </small>
+                    <h4>Nome: {{ dados.pessoa.nome }}</h4>
+                    <p>
+                        <h4>Número: {{ numero }} </h4>
+                    </p>
+                    <p><a href="#" class="btn btn-success" role="button">Número atribuido com sucesso</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-2 ">
+        <p></p>
+    </div>
+</div>
+{% endblock %}

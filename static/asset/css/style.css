@@ -507,16 +507,15 @@ p.quote:before {
 /*start: Login*/
 
 .form-signin-wrapper {
-    background-image: url("/static/asset/img/cppgl.jpg");
-    background-position: center;
-    background-size: 61%;
+    background-image: url("/static/asset/img/uan3.png");
+    background-size: 100%;
     /*background: #fff !important;*/
     background-repeat: no-repeat, repeat-x;
 }
 
 .form-signin {
     max-width: 330px;
-    padding: 15px;
+    padding: 14px 15px 15px 15px;
     margin: 0 auto;
 }
 
@@ -539,6 +538,7 @@ p.quote:before {
     padding: 10px;
     border: none !important;
     box-shadow: 0 7px 10px #0a86e9, 0 4px 5px #0a86e9;
+    border-radius: 25px;
 }
 
 .form-signin .panel-body {
@@ -2250,7 +2250,7 @@ ul li a:focus {
 }
 #left-menu .sub-left-menu .tree li {
     padding: 0px;
-    padding-left: 5%;
+    padding-left: 2%;
 }
 .opener-left-menu {
     float: left;
@@ -5953,7 +5953,7 @@ ul li a:focus {
     width: 100%;
     border: none;
     background: none;
-    color: #000;
+    color: #fff;
     border-bottom: 1px solid #757575;
 }
 .form-group.form-animate-text .form-text:focus {

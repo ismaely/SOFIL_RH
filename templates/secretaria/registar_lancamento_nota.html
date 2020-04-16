@@ -1,0 +1,81 @@
+<!DOCTYPE html>{% extends 'home_base.html' %}{% block corpo %}{% load static %}
+<!--
+@File   : registar_lancamento_nota.html
+@Author : Gunza Ismael ({__email})
+@Link   : 
+@Date   : 17/07/2019, 19:12:38
+-->
+
+<div id="">
+    <div class="form-element">
+        <div class="col-md-12 padding-0">
+            <div class="col-md-12">
+                <div class="panel form-element-padding">
+                    <div class="panel-heading">
+                        <h4>Registar Lançamento da Nota</h4>
+
+                    </div>
+                    <div class="panel-body" style="padding-bottom:30px;">
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-10">
+
+                            {% if escolha %}
+
+                            <form role="form" action="{% url 'secretaria:alterar-nota' id %}" method="POST">
+                                {% else %}
+
+                                <form role="form" action="{% url 'secretaria:lancamento-nota' %}" method="POST">
+                                    {% endif %} {% csrf_token %} {% autoescape on %}
+
+                                    <!-- inicio do primeiro bloco-->
+                                    <div class="col-md-6">
+                                        <div class="form-group " style="margin: -10px 0px !important;">
+                                            <label class="col-sm-12 control-label">Nº Estudante / Nº BI</label> {{ form.estudante }} {{ form.estudante.errors }}
+                                        </div>
+
+                                        <div class="form-group " style="margin: -10px 0px !important;">
+                                            <label class="col-sm-12 control-label ">Ano </label> {{ form.ano }} {{ form.ano.errors }}
+                                        </div>
+
+                                        <div class="form-group " style="margin: -10px 0px !important;">
+                                            <label class="col-sm-12 control-label ">Modulo </label> {{ form.modulo }} {{ form.modulo.errors }}
+                                        </div>
+                                        <div class="form-group " style="margin: -10px 0px !important;">
+                                            <label class="col-sm-12 control-label ">Data de Lançamento</label> {{ form.data_entrada }} {{ form.data_entrada.errors }}
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group " style="margin: -10px 0px !important;">
+                                            <label class="col-sm-12 control-label ">Curso</label> {{ form.curso }} {{ form.curso.errors }}
+                                        </div>
+                                        <div class="form-group " style="margin: -10px 0px !important;">
+                                            <label class="col-sm-12 control-label ">Semestre </label> {{ form.semestre }} {{ form.semestre.errors }}
+                                        </div>
+                                        <div class="form-group " style="margin: -10px 0px !important;">
+                                            <label class="col-sm-12 control-label ">Nota</label> {{ form.nota }} {{ form.nota.errors }}
+                                        </div>
+                                        <div class="form-group " style="margin: -10px 0px !important;">
+                                            <label class="col-sm-12 control-label ">Data de Realização da Prova</label> {{ form.data_entrada }} {{ form.data_entrada.errors }}
+                                        </div>
+
+                                        <ul class="form-group list-inline ">
+                                            <li><button type="submit" class="col-md-12 btn btn-primary">Salvar</button></li>
+                                        </ul>
+                                    </div>
+
+
+                                    {% endautoescape %}
+                                </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}

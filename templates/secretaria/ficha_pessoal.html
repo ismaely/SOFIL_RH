@@ -1,0 +1,286 @@
+<!DOCTYPE html> {% extends 'home_base.html' %}{% block corpo %}{% load static %}
+<!--
+@File   : ficha_pessoal.html
+@Author : Gunza Ismael ({__email})
+@Link   : 
+@Date   : 09/12/2019, 23:05:50
+-->
+<div id="" class="profile-v1">
+
+    <div class="col-md-12 col-sm-12 profile-v1-wrapper">
+        <div class="col-md-12  profile-v1-cover-wrap" style="padding-right:0px;">
+            <div class="profile-v1-pp">
+                <img src="{% static '/asset/img/user.png' %}" />
+                <div class="col-md-12">
+                    <h4>
+                        <address style="color:#fff;">
+                        Nome: {{ lista.estudante.pessoa.nome }}<br>
+                      Curso: {{ dados.curso.nome }}<br>
+                      Nº: {{ lista.estudante.numero_estudante}}<br>
+                      Data de Inscrição: {{ lista.estudante.data_inscricao }}<br>
+                     </address>
+                    </h4>
+                    <div class="">
+                        <center>
+                            <input type="button" value="Imprimir em pdf" class="btn btn-danger box-shadow-none" />
+                        </center>
+                    </div>
+                </div>
+                <!--<input type="button" class="btn btn-danger" value="Imprimir em pdf" />-->
+            </div>
+            <div class="col-md-12 profile-v1-cover">
+                <img src="{% static '/asset/img/b1.jpg' %}" class="img-responsive">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-12 col-sm-12 profile-v1-body">
+        <div class="col-md-12">
+            <div class="panel box-v7">
+                <div class="panel-body">
+                    <div class="col-md-12 padding-0 box-v7-comment">
+                        <div class="media">
+                            <div class="media-body">
+                                <h4 class="media-heading"> Dados de Cadastro</h4>
+                                <div class="responsive-table">
+
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <th>Nome do Pai</th>
+                                            <th>Nome da Mãe</th>
+                                            <th>Data de Nascimento</th>
+                                            <th>Naturalidade</th>
+
+                                        </tr>
+                                        <tr>
+                                            <td>{{ lista.estudante.pessoa.nome_mae }}</td>
+                                            <td> {{ lista.estudante.pessoa.nome_mae }} </td>
+                                            <td> {{ lista.estudante.pessoa.data_nascimento }}</td>
+                                            <td>{{ lista.estudante.pessoa.naturalidade }}</td>
+
+                                        </tr>
+                                        <tr>
+                                            <th>B.I Nª</th>
+                                            <th>Estado Civil</th>
+                                            <th>Género</th>
+                                            <th>Município</th>
+
+                                        </tr>
+                                        <tr>
+                                            <td>{{ lista.estudante.pessoa.bi }}</td>
+                                            <td>{{ lista.estudante.pessoa.estado_civil }}</td>
+                                            <td> {{ lista.estudante.pessoa.genero }} </td>
+                                            <td>{{ lista.estudante.pessoa.municipio.nome }}</td>
+
+                                        </tr>
+                                        <tr>
+                                            <th>Residência</th>
+                                            <th>Telefone</th>
+                                            <th>E-mail</th>
+                                            <th></th>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ lista.estudante.pessoa.residencia|lower|capfirst }}</td>
+                                            <td>{{ lista.estudante.pessoa.telefone }}</td>
+                                            <td>{{ lista.estudante.pessoa.email }}</td>
+                                            <td>-------</td>
+                                        </tr>
+                                        <!-- <tr>
+                                            <th colspan="3">Total</th>
+                                            <td>----</td>
+                                        </tr>-->
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-12 col-sm-12 profile-v1-body">
+        <div class="col-md-6">
+            <div class="panel box-v7">
+                <div class="panel-body">
+                    <div class="col-md-12 padding-0 box-v7-comment">
+                        <div class="media">
+                            <div class="media-body">
+                                <h4 class="media-heading">Dados de Licenciatura</h4>
+                                <div class="responsive-table">
+
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <th>Graduação</th>
+                                            <th>Universidade</th>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ lista.estudante.graduado|lower|capfirst }}</td>
+                                            <td> {{ lista.estudante.universidade }} </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Especialidade</th>
+                                            <th>Data da Licenciatura</th>
+
+                                        </tr>
+                                        <tr>
+                                            <td>{{ lista.estudante.especialidade|lower|capfirst }}</td>
+                                            <td>{{ lista.estudante.data_conclusao }}</td>
+
+
+                                        </tr>
+                                        <tr>
+                                            <th>Nota</th>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ lista.estudante.nota_final }}</td>
+                                        </tr>
+                                        <!-- <tr>
+                                                <th colspan="3">Total</th>
+                                                <td>----</td>
+                                            </tr>-->
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-6">
+            <div class="panel box-v7">
+                <div class="panel-body">
+                    <div class="col-md-12 padding-0 box-v7-comment">
+                        <div class="media">
+                            <div class="media-body">
+                                <h4 class="media-heading"> Dados de Profissão</h4>
+                                <div class="responsive-table">
+
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <th>Empresa</th>
+                                            <th>Função</th>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ lista.instituicao|lower|capfirst }}</td>
+                                            <td> {{ lista.funcao }} </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Area Profissional</th>
+                                            <th>Ano de Experiência</th>
+
+                                        </tr>
+                                        <tr>
+                                            <td>{{ lista.area_profissional|lower|capfirst }}</td>
+                                            <td>{{ lista.ano_experiencia }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Localização</th>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ lista.localizacao }}</td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-12 col-sm-12 profile-v1-body">
+        <div class="col-md-12">
+            <div class="panel box-v7">
+                <div class="panel-body">
+                    <div class="col-md-12 padding-0 box-v7-comment">
+                        <div class="media">
+                            <div class="media-body">
+                                <h4 class="media-heading">Módulos feito em {{ dados.curso.grau_academico }}</h4>
+                                <div class="responsive-table">
+
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <th>Módulo</th>
+                                            <th>Data</th>
+                                            <th>Nota</th>
+                                            <th>Descrição</th>
+                                        </tr>
+                                        <!-- 1º semestre mestrado-->
+                                        {% if grau == '2' and limite > 0 %}
+                                        <tr>
+                                            <th colspan="4"><b> 1º Semestre </b></th>
+                                        </tr>
+                                        {% for item in notas %} {% if item.semestre_id == 1 %}
+                                        <tr>
+                                            <td>{{ item.modulo_curso.modulo.nome }} </td>
+                                            <td>{{ item.data_entrada }}</td>
+                                            <td>{{ item.nota }}</td>
+                                            <td>{{ item.descricao.nome }}</td>
+
+                                        </tr>
+                                        {% endif %} {% endfor %}
+                                        <!-- 2º semestre-->
+                                        <tr>
+                                            <th colspan="4"><b> 2º Semestre </b></th>
+                                        </tr>
+                                        {% for item in notas %} {% if item.semestre_id == 2 %}
+                                        <tr>
+                                            <td>{{ item.modulo_curso.modulo.nome }} </td>
+                                            <td>{{ item.data_entrada }}</td>
+                                            <td>{{ item.nota }}</td>
+                                            <td>{{ item.descricao.nome }}</td>
+                                        </tr>
+                                        {% endif %} {% endfor %}
+                                        <!-- 3º semestre-->
+                                        <tr>
+                                            <th colspan="4"><b> 3º Semestre </b></th>
+                                        </tr>
+                                        {% for item in notas %} {% if item.semestre_id == 3 %}
+                                        <tr>
+                                            <td>{{ item.modulo_curso.modulo.nome }} </td>
+                                            <td>{{ item.data_entrada }}</td>
+                                            <td>{{ item.nota }}</td>
+                                            <td>{{ item.descricao.nome }}</td>
+                                        </tr>
+
+
+                                        {% endif %} {% endfor %}{% endif %}
+                                        <!-- PÓS-GRADUAÇÃO-->
+                                        {% if grau == '1' and limite > 0 %}
+                                        <tr>
+                                            <th colspan="4"><b> 1º Semestre </b></th>
+                                        </tr>
+                                        {% for item in notas %}
+                                        <tr>
+                                            <td>{{ item.modulo_curso.modulo.nome }} </td>
+                                            <td>{{ item.data_entrada }}</td>
+                                            <td>{{ item.nota }}</td>
+                                            <td>{{ item.descricao.nome }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                        <!-- 2º semestre-->
+
+                                        {% endif %}
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+{% endblock %}

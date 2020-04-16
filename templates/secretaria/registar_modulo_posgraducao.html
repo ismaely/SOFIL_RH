@@ -1,0 +1,75 @@
+<!--
+@File   : registar_modulo_posgraducao.html
+@Author : Gunza Ismael ({__email})
+@Link   : 
+@Date   : 11/07/2019, 01:31:45
+-->
+{% extends 'home_base.html' %}{% block corpo %}{% load static %}
+
+<div id="">
+    <div class="col-md-2">
+    </div>
+
+    <div class="form-element">
+        <div class="col-md-8 padding-0">
+            <div class="col-md-12">
+                <div class="panel form-element-padding">
+                    <div class="panel-heading">
+
+                        {% if modulo %}
+                        <h4>Atualizar Dados do Modulo Pós-Graduação</h4>
+
+                        {% else %}
+                        <h4>Registar Novo Modulo Pós-Graduação</h4>
+                        {% endif %}
+
+                    </div>
+                    <div class="panel-body" style="padding-bottom:30px;">
+                        <div class="col-md-12">
+                            {% if modulo %}
+                            <form role="form" action="{% url 'secretaria:editar-modulo-posGraduacao' modulo.id %}" method="POST">
+                                {% else %}
+                                <form role="form" action="{% url 'secretaria:registar-modulo-posGraduacao' %}" method="POST">
+                                    {% endif %}{% csrf_token %} {% autoescape on %}
+                                    <!-- inicio do primeiro bloco-->
+
+                                    <div class="col-md-10">
+                                        <div class="form-group " style="margin: -10px 0px !important;">
+                                            <label class="col-sm-12 control-label">Nome do Modulo</label> {{ form.nome }} {{ form.nome.errors }}
+
+                                        </div>
+                                        <div class="form-group " style="margin: -10px 0px !important;">
+                                            <label class="col-sm-12 control-label ">Curso</label> {{ form.curso }} {{ form.curso.errors }}
+
+                                        </div>
+                                        <div class="form-group " style="margin: -10px 0px !important;">
+                                            <label class="col-sm-10 control-label ">Semestre</label> {{ form.semestre }} {{ form.semestre.errors }}
+
+                                        </div>
+
+                                        <div class="form-group " style="margin: -10px 0px !important;">
+                                            <label class="col-sm-12 control-label ">Sigla / Código da Disciplina</label> {{ form.sigla_codigo }} {{ form.sigla_codigo.errors }}
+
+                                        </div>
+
+                                        <ul class="form-group list-inline right">
+                                            <li><button type="submit" class="col-md-12 btn btn-primary next-step">Salvar</button></li>
+                                        </ul>
+                                    </div>
+
+                                    {% endautoescape %}
+                                </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+</div>
+
+{% endblock %}

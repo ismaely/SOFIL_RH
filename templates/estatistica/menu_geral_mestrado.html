@@ -1,0 +1,78 @@
+<!DOCTYPE html>{% extends 'home_base.html' %}{% block corpo %}{% load static %}
+<!--
+@File   : menu_geral_mestrado.html
+@Author : Gunza Ismael ({__email})
+@Link   : 
+@Date   : 03/11/2019, 09:20:08
+-->
+
+<div id="">
+    <div class="form-element">
+        <div class="col-md-12 padding-0">
+            <div class="col-md-12">
+                <div class="panel form-element-padding">
+                    <div class="panel-heading">
+                        <h4>Menu Para Gerar Estatistica de Mestrado</h4>
+                    </div>
+                    <div class="panel-body" style="padding-bottom:30px;">
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-10">
+                            <form role="form" action="{% url 'estatistica:menu-mestrado' %}" method="POST">
+                                {% csrf_token %} {% autoescape on %}
+
+                                <!-- inicio do primeiro bloco-->
+                                <div class="col-md-6">
+                                    <div class="form-group " style="margin: -10px 0px !important;">
+                                        <label class="col-sm-12 control-label">Titulo da Legenda: </label> {{ form.titulo }} {{ form.titulo.errors }}
+                                    </div>
+                                    <div class="form-group " style="margin: -10px 0px !important;">
+                                        <label class="col-sm-12 control-label ">Cursos: </label> {{ form.curso }} {{ form.curso.errors }}
+                                    </div>
+                                    <div class="form-group " style="margin: -10px 0px !important;">
+                                        <label class="col-sm-12 control-label ">Especialidade: </label> {{ form.especialidade }} {{ form.especialidade.errors }}
+                                    </div>
+
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group " style="margin: -10px 0px !important;">
+                                        <label class="col-sm-12 control-label ">Opções: </label> {{ form.opcao }} {{ form.opcao.errors }}
+                                    </div>
+                                    <div class="col-sm-6 form-group " style="margin: -10px 0px !important;">
+                                        <label class="col-sm-12 control-label ">Ano: </label> {{ form.ano }} {{ form.ano.errors }}
+                                    </div>
+                                    <div class="col-sm-6 form-group " style="margin: -10px 0px !important;">
+                                        <label class="col-sm-12 control-label ">Semestre: </label> {{ form.semestre }} {{ form.semestre.errors }}
+                                    </div>
+
+                                    <div class="col-sm-6 form-group " style="margin: -10px 0px !important;">
+                                        <label class="col-sm-12 control-label ">Data incial: </label> {{ form.data_incial }} {{ form.data_incial.errors }}
+                                    </div>
+                                    <div class="col-sm-6 form-group " style="margin: -10px 0px !important;">
+                                        <label class="col-sm-12 control-label ">Data final: </label> {{ form.data_final }} {{ form.data_final.errors }}
+                                    </div>
+                                    <p>
+                                        <ul class="form-group list-inline ">
+                                            <br>
+                                            <li><button type="submit" class="col-md-12 btn btn-primary">ENVIAR</button></li>
+                                        </ul>
+                                    </p>
+
+
+                                </div>
+
+
+                                {% endautoescape %}
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}

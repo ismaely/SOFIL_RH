@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--
+@File   : menu_listar_monografia.html
+@Author : Gunza Ismael ({__email})
+@Link   : 
+@Date   : 23/10/2019, 09:19:03
+-->
+{% extends 'home_base.html' %}{% block corpo %}{% load static %}
+
+<div id="">
+    <div class="form-element">
+        <div class="col-md-12 padding-0">
+            <div class="col-md-12">
+                <div class="panel form-element-padding">
+                    <div class="panel-heading">
+                        <h4>Menu de Criação de Lista de Monografias (Mestrado / Pós-Graduação)</h4>
+                    </div>
+                    <div class="panel-body" style="padding-bottom:30px;">
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-10">
+                            <form role="form" action="{% url 'secretaria:monografia' %} " method="POST">
+                                {% csrf_token %} {% autoescape on %}
+                                <!-- inicio do primeiro bloco-->
+                                <div class="col-md-3">
+
+                                    <!--
+                                    <div class="form-group " style="margin: -10px 0px !important;">
+                                        <label class="col-sm-12 control-label ">Ano </label> {{ form.ano }} {{ form.ano.errors }}
+                                    </div>
+                                    <div class="form-group " style="margin: -10px 0px !important;">
+                                        <label class="col-sm-12 control-label ">Semestre </label> {{ form.semestre }} {{ form.semestre.errors }}
+                                    </div> -->
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group " style="margin: -10px 0px !important;">
+                                        <label class="col-sm-12 control-label">Grau Academico</label> {{ form.grau }} {{ form.grau.errors }}
+                                    </div>
+                                    <div class="form-group " style="margin: -10px 0px !important;">
+                                        <label class="col-sm-12 control-label ">Curso</label> {{ form.curso }} {{ form.curso.errors }}
+                                    </div>
+                                    <div class="form-group " style="margin: -10px 0px !important;">
+                                        <label class="col-sm-12 control-label ">Especialidade</label> {{ form.especialidade }} {{ form.especialidade.errors }}
+                                    </div>
+                                    <div class="form-group " style="margin: -10px 0px !important;">
+                                        <label class="col-sm-12 control-label ">Data</label> {{ form.data_entrada }} {{ form.data_entrada.errors }}
+                                    </div>
+
+                                    <ul class="form-group list-inline right">
+                                        <li><button type="submit" class="col-md-12 btn btn-primary">GERAR LISTA</button></li>
+                                    </ul>
+
+
+                                </div>
+                                <div class="col-md-3">
+
+                                </div>
+
+
+                                {% endautoescape %}
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}

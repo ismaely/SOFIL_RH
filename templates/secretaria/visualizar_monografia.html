@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!--
+@File   : visualizar_monografia.html
+@Author : Gunza Ismael ({__email})
+@Link   : 
+@Date   : 12/12/2019, 16:57:19
+-->
+{% extends 'home_base.html' %}{% block corpo %}{% load static %}
+<div id="">
+
+    <div class="col-md-12  padding-0">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3>TEMA: {{ lista.tema|lower|capfirst }} </h3>
+
+                </div>
+                <div class="panel-body">
+                    <div class="x_content">
+                        <object data="/media/{{ lista.arquivo }}" type="application/pdf" class="col-md-12 col-sm-12 col-xs-12" height="780">
+                                <p>Seu navegador não tem um plugin pra PDF</p>
+                              </object>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
