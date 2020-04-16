@@ -60,7 +60,7 @@ traitlets==4.3.2
 translate-pdf-word==0.0.2
 treepoem==3.1.0
 twilio==6.30.0
-urllib3==1.22
+urllib3==1.24.2
 uuid==1.30
 uWSGI==2.0.17.1
 validators==0.12.1
