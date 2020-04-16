@@ -1,4 +1,4 @@
 core_help
-requirements.txt
-manage.py
-docs_font
+/docs_font
+/static
+/media
