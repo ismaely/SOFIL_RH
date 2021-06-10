@@ -6,7 +6,7 @@ cffi==1.11.2
 chardet==3.0.4
 cryptography==2.1.4
 decorator==4.1.2
-Django==3.0.1
+Django==3.1.12
 django-json-tag==0.0.1
 django-master-password==1.1.1
 django-qrcode==0.3
