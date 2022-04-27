@@ -48,7 +48,7 @@ python-barcode==0.10.0
 python-docx==0.8.10
 pytz==2017.3
 qrcode==6.1
-reportlab==3.4.0
+reportlab==3.5.55
 requests==2.18.4
 simplegeneric==0.8.1
 six==1.11.0
